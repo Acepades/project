@@ -4,13 +4,17 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 ## Available Scripts
 
-In the project directory, you can run:
+Awel 7aja taamelha fel working dir heyya : 
+### `npm install react-scripts --save`
+(naarech aaleh kif ma sar f docker l github ma ysavich l 'deprecated scripts' ama that should fix it)
+
+Ba3ed juste a3mel:
 
 ### `npm start`
 
-Runs the app in the development mode.\
 Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 
+# ignore li ba3dou lkol zeyed for now
 The page will reload when you make changes.\
 You may also see any lint errors in the console.
 
