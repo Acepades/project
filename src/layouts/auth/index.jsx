@@ -1,4 +1,3 @@
-import Footer from "components/footer/FooterAuthDefault";
 import authImg from "assets/img/auth/auth.png";
 import { Link, Routes, Route, Navigate } from "react-router-dom";
 import routes from "routes.js";
@@ -70,7 +69,6 @@ export default function Auth() {
                   />
                 </div>
               </div>
-              <Footer />
             </div>
           </div>
         </main>

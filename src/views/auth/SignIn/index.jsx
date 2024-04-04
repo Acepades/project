@@ -5,8 +5,8 @@ import React from 'react';
 import { AuthContext } from 'contexts/AuthContext';
 
 export default function SignIn() {
-  const [email, setEmail] = React.useState('');       // <-- Default values HERE: demo@gmail.com
-  const [password, setPassword] = React.useState(''); // <-- Default values HERE: 123456
+  const [email, setEmail] = React.useState('');
+  const [password, setPassword] = React.useState('');
   const [loginError, setLoginError] = React.useState('');
   const { signIn, googleSignIn } = React.useContext(AuthContext);
 
@@ -80,12 +80,15 @@ export default function SignIn() {
         <button onClick={handleSignIn} className="linear mt-2 w-full rounded-xl bg-brand-500 py-[12px] text-base font-medium text-white transition duration-200 hover:bg-brand-600 active:bg-brand-700 dark:bg-brand-400 dark:text-white dark:hover:bg-brand-300 dark:active:bg-brand-200">
           Sign In
         </button>
+        <div className="flex mb-3 mt-3">
+      <p className={`text-sm font-bold text-red-500`}>{loginError}</p>
+    </div>
         <div className="mt-4">
           <span className=" text-sm font-medium text-navy-700 dark:text-gray-600">
             Not registered yet?
           </span>
           <a
-            href=" "
+            href="/auth/sign-up"
             className="ml-1 text-sm font-medium text-brand-500 hover:text-brand-600 dark:text-white"
           >
             Create an account
