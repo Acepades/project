@@ -3,9 +3,9 @@ import { Routes, Route, Navigate, useLocation } from "react-router-dom";
 import Navbar from "components/navbar";
 import Sidebar from "components/sidebar";
 import routes from "routes.js";
-import { AuthContext } from "contexts/AuthContext";
+import { GlobalContext } from "contexts/GlobalContext";
 export default function Admin(props) {
-  const { isSignedIn } = useContext(AuthContext);
+  const { isSignedIn } = useContext(GlobalContext);
   const { ...rest } = props;
   const location = useLocation();
   const [open, setOpen] = React.useState(true);

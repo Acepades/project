@@ -1,5 +1,5 @@
 import React from 'react';
-import { AuthContext } from 'contexts/AuthContext';
+import { GlobalContext } from 'contexts/GlobalContext';
 import InputField from 'components/fields/InputField';
 import Checkbox from 'components/checkbox';
 
@@ -7,7 +7,7 @@ export default function SignUp() {
   const [email, setEmail] = React.useState('');
   const [password, setPassword] = React.useState('');
   const [loginError, setLoginError] = React.useState('');
-  const { signUp } = React.useContext(AuthContext);
+  const { signUp } = React.useContext(GlobalContext);
   const [confirmPassword, setConfirmPassword] = React.useState('');
 
 

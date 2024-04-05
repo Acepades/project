@@ -1,88 +1,41 @@
-import CardMenu from "components/card/CardMenu";
-import React from "react";
-import Checkbox from "components/checkbox";
-import { MdDragIndicator, MdCheckCircle } from "react-icons/md";
-import Card from "components/card";
+import React from 'react';
+import Card from 'components/card'; // Assuming Card component handles basic card structure
+import Checkbox from 'components/checkbox';
 
-const TaskCard = () => {
+const TaskCard = ({ task, onMarkComplete, onSubtaskCheck }) => {
   return (
-    <Card extra="pb-7 p-[20px]">
-      {/* task header */}
-      <div className="relative flex flex-row justify-between">
-        <div className="flex items-center">
-          <div className="flex h-9 w-9 items-center justify-center rounded-full bg-indigo-100 dark:bg-indigo-100 dark:bg-white/5">
-            <MdCheckCircle className="h-6 w-6 text-brand-500 dark:text-white" />
-          </div>
-          <h4 className="ml-4 text-xl font-bold text-navy-700 dark:text-white">
-            Tasks
-          </h4>
-        </div>
-        <CardMenu />
-      </div>
-
-      {/* task content */}
-
-      <div className="h-full w-full">
-        <div className="mt-5 flex items-center justify-between p-2">
-          <div className="flex items-center justify-center gap-2">
-            <Checkbox />
-            <p className="text-base font-bold text-navy-700 dark:text-white">
-              Landing Page Design
-            </p>
-          </div>
-          <div>
-            <MdDragIndicator className="h-6 w-6 text-navy-700 dark:text-white" />
-          </div>
-        </div>
-
-        <div className="mt-2 flex items-center justify-between p-2">
-          <div className="flex items-center justify-center gap-2">
-            <Checkbox />
-            <p className="text-base font-bold text-navy-700 dark:text-white">
-              Mobile App Design
-            </p>
-          </div>
-          <div>
-            <MdDragIndicator className="h-6 w-6 text-navy-700 dark:text-white" />
-          </div>
-        </div>
-
-        <div className="mt-2 flex items-center justify-between p-2">
-          <div className="flex items-center justify-center gap-2">
-            <Checkbox />
-            <p className="text-base font-bold text-navy-700 dark:text-white">
-              Dashboard Builder
-            </p>
-          </div>
-          <div>
-            <MdDragIndicator className="h-6 w-6 text-navy-700 dark:text-white" />
-          </div>
-        </div>
-
-        <div className="mt-2 flex items-center justify-between p-2">
-          <div className="flex items-center justify-center gap-2">
-            <Checkbox />
-            <p className="text-base font-bold text-navy-700 dark:text-white">
-              Landing Page Design
-            </p>
-          </div>
-          <div>
-            <MdDragIndicator className="h-6 w-6 text-navy-700 dark:text-white" />
-          </div>
-        </div>
-
-        <div className="mt-2 flex items-center justify-between p-2">
-          <div className="flex items-center justify-center gap-2">
-            <Checkbox />
-            <p className="text-base font-bold text-navy-700 dark:text-white">
-              Dashboard Builder
-            </p>
-          </div>
-          <div>
-            <MdDragIndicator className="h-6 w-6 text-navy-700 dark:text-white" />
-          </div>
-        </div>
-      </div>
+    <Card>
+      <li key={task.id} className="task-card p-4 rounded-md shadow-sm border border-gray-200">
+        <h3 className="font-bold text-lg mb-2">{task.title}</h3>
+        <p className="text-gray-700 mb-2">{task.description}</p>
+        {task.exp_to_gain > 0 && (
+          <p className="font-medium text-gray-500">
+            <b>Experience Points:</b> {task.exp_to_gain}
+          </p>
+        )}
+        <p className="text-gray-500 text-sm">
+          <b>Created At:</b> {task.createdAt.toDate().toLocaleString()}
+        </p>
+        <ul className="list-none mt-4">
+          {Object.entries(task.subtasks).map(([subtaskName, subtaskObj]) => (
+            <li key={subtaskName} className="flex items-center mb-2">
+              <Checkbox
+                type="checkbox"
+                id={subtaskName}
+                checked={subtaskObj.iscomplete}
+                className="mr-2 h-5 w-5 rounded focus:ring-0 focus:ring-offset-0 focus:outline-none focus:ring-primary-500"
+                onChange={() => onSubtaskCheck(task.id, subtaskName)} // Handle subtask check
+              />
+              <label htmlFor={subtaskName} className="text-gray-700">
+                {subtaskName}
+              </label>
+            </li>
+          ))}
+        </ul>
+        <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mb-4" onClick={() => onMarkComplete(task.id)}>
+          Complete Task
+        </button>
+      </li>
     </Card>
   );
 };

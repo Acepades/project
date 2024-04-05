@@ -1,6 +1,6 @@
 import ReactDOM from "react-dom/client";
 import { BrowserRouter } from "react-router-dom";
-import { ContextProvider } from "contexts/AuthContext";
+import { ContextProvider } from "contexts/GlobalContext";
 
 import "./index.css";
 
