@@ -86,4 +86,4 @@ const ShowCompletedTasks = () => {
 };
 
 export default ShowTasks;
-export {ShowCompletedTasks}
+export {ShowCompletedTasks};
