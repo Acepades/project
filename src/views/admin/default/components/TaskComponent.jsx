@@ -3,7 +3,6 @@ import Card from 'components/card';
 import auth from 'lib/firebase';
 import { Timestamp,collection,addDoc } from 'firebase/firestore';
 import { db } from 'lib/firebase';
-import InputField from 'components/fields/InputField';
 import TextField from 'components/fields/TextField';
 
 const TaskComponent = () => {
@@ -22,7 +21,7 @@ const TaskComponent = () => {
   const [newSubtask, setNewSubtask] = useState('');
 
   const handleChange = (event) => {
-    const { name, value, type, checked,title } = event.target;
+    const { name, value, type, checked } = event.target;
     setTaskData({
       ...taskData,
       [name]: type === 'checkbox' ? checked : value,
@@ -107,11 +106,11 @@ const TaskComponent = () => {
   return (
     <Card title="Create Task" extra="w-full">
       <div className="ml-3 mt-3 grid grid-cols-1 gap-4 ">
-        <InputField
-          htmlFor="taskTitle"
+        <label htmlFor="taskTitle">Title</label>
+        <input
           type="text"
           value={taskData.title}
-          onChange={(e)=>e.handleChange}
+          onChange={handleChange}
           placeholder="Enter task title"
           name="title"
         />
