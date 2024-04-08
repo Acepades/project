@@ -57,7 +57,7 @@ export default function Admin(props) {
     });
   };
 
-  document.documentElement.dir = "ltr";
+
   if (!isSignedIn) return <Navigate to="/auth" />;
   return (
     <div className="flex h-full w-full">

@@ -1,7 +1,7 @@
 // Custom components
 import React from "react";
 
-function InputField(props) {
+function TextField(props) {
   const { label, id, extra, placeholder, cols, rows, state, disabled } = props;
 
   return (
@@ -36,4 +36,4 @@ function InputField(props) {
   );
 }
 
-export default InputField;
+export default TextField;

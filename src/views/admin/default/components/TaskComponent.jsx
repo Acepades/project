@@ -1,25 +1,28 @@
 import React, { useState} from 'react';
-import Card from 'components/card'; // Assuming Card component path
-import { createTask } from 'lib/taskCRUD'; // Import createTask function
+import Card from 'components/card';
 import auth from 'lib/firebase';
-import { Timestamp } from 'firebase/firestore';
+import { Timestamp,collection,addDoc } from 'firebase/firestore';
+import { db } from 'lib/firebase';
+import InputField from 'components/fields/InputField';
+import TextField from 'components/fields/TextField';
 
 const TaskComponent = () => {
-
   const [taskData, setTaskData] = useState({
     title: '',
     description: '',
     exp_to_gain: 0,
-    iscomplete: false,
+    isComplete: false,
     subtasks: {}, // Map to store subtasks with completion state
     createdBy: auth.currentUser?.uid,
-    createdAt: Timestamp.now(),
+    createdAt: Timestamp.now(), // Use Firebase v9 Timestamp
+    isCollab: false,
+    collaborators: [],
   });
 
   const [newSubtask, setNewSubtask] = useState('');
 
   const handleChange = (event) => {
-    const { name, value, type, checked } = event.target;
+    const { name, value, type, checked,title } = event.target;
     setTaskData({
       ...taskData,
       [name]: type === 'checkbox' ? checked : value,
@@ -33,7 +36,7 @@ const TaskComponent = () => {
       ...taskData,
       subtasks: {
         ...taskData.subtasks,
-        [newSubtask]: { name: newSubtask, iscomplete: false }, // Add subtask with initial false
+        [newSubtask]: { name: newSubtask, isComplete: false }, // Add subtask with initial false
       },
     });
     setNewSubtask(''); // Clear input after adding
@@ -46,7 +49,7 @@ const TaskComponent = () => {
         ...taskData.subtasks,
         [subtaskName]: {
           ...taskData.subtasks[subtaskName],
-          iscomplete: !taskData.subtasks[subtaskName].iscomplete,
+          isComplete: !taskData.subtasks[subtaskName].isComplete,
         },
       },
     });
@@ -62,7 +65,7 @@ const TaskComponent = () => {
       title: taskData.title,
       description: taskData.description,
       exp_to_gain: taskData.exp_to_gain,
-      iscomplete: taskData.iscomplete,
+      isComplete: taskData.isComplete,
       subtasks: Object.fromEntries( // Convert map to object for Firestore
         Object.entries(taskData.subtasks).map(([subtaskName, subtaskObj]) => [
           subtaskName,
@@ -73,20 +76,24 @@ const TaskComponent = () => {
       createdAt: Timestamp.now(),
     };
 
-
     try {
-      await createTask(newTask);
-      console.log('Task created successfully!');
+      const tasksRef = collection(db, 'Tasks');
+      const taskDocRef = await addDoc(tasksRef, newTask); // Add task and get document reference
+      newTask.id = taskDocRef.id; // Assign auto-generated ID to task object
 
-      // Clear form fields
+      console.log('Task created successfully! ID:', newTask.id);
+
+      // Clear form fields and set newTask with ID (optional for form reset or state management)
       setTaskData({
         title: '',
         description: '',
-        exp_to_gain: 0,
-        iscomplete: false,
+        exp_to_gain: '',
+        isComplete: false,
         subtasks: {},
         createdBy: auth.currentUser?.uid,
         createdAt: Timestamp.now(),
+        isCollab: false,
+        collaborators: [],
       });
 
       setNewSubtask('');
@@ -96,24 +103,22 @@ const TaskComponent = () => {
     }
   };
 
+
   return (
     <Card title="Create Task" extra="w-full">
       <div className="ml-3 mt-3 grid grid-cols-1 gap-4 ">
-        <label htmlFor="taskTitle">
-          Title:
-        </label>
-        <input
+        <InputField
+          htmlFor="taskTitle"
           type="text"
-          id="taskTitle"
           value={taskData.title}
-          onChange={handleChange}
+          onChange={(e)=>e.handleChange}
           placeholder="Enter task title"
           name="title"
         />
         <label htmlFor="taskDescription">
           Description (optional):
         </label>
-        <textarea
+        <TextField
           id="taskDescription"
           value={taskData.description}
           onChange={handleChange}
@@ -125,7 +130,6 @@ const TaskComponent = () => {
         </label>
         <input
           type="number"
-          id="expToGain"
           value={taskData.exp_to_gain}
           onChange={handleChange}
           placeholder="Enter experience points to gain"
@@ -138,11 +142,9 @@ const TaskComponent = () => {
           </label>
           <input
             type="text"
-            id="newSubtask"
             value={newSubtask}
             onChange={(e) => setNewSubtask(e.target.value)}
-            placeholder="Enter subtask"
-            name="newSubtask"
+
           />
           <button onClick={handleAddSubtask}>Add Subtask</button>
         </div>
@@ -153,7 +155,7 @@ const TaskComponent = () => {
               <input
                 type="checkbox"
                 id={subtaskName} // Unique ID for each checkbox
-                checked={subtaskObj.iscomplete} // Set checked based on iscomplete
+                checked={subtaskObj.isComplete} // Set checked based on iscomplete
                 onChange={() => toggleSubtaskCompletion(subtaskName)} // Call toggle function on change
               />
               <label htmlFor={subtaskName}>{subtaskName}</label>
