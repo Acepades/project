@@ -3,7 +3,6 @@ import Card from 'components/card';
 import auth from 'lib/firebase';
 import { Timestamp,collection,addDoc } from 'firebase/firestore';
 import { db } from 'lib/firebase';
-import TextField from 'components/fields/TextField';
 
 const TaskComponent = () => {
   const [taskData, setTaskData] = useState({
@@ -73,6 +72,8 @@ const TaskComponent = () => {
       ),
       createdBy: auth.currentUser?.uid,
       createdAt: Timestamp.now(),
+      isCollab: false,
+      collaborators: [],
     };
 
     try {
@@ -117,7 +118,8 @@ const TaskComponent = () => {
         <label htmlFor="taskDescription">
           Description (optional):
         </label>
-        <TextField
+        <input
+          type="text"
           id="taskDescription"
           value={taskData.description}
           onChange={handleChange}

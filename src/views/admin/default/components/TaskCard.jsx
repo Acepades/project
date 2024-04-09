@@ -3,9 +3,10 @@ import Card from 'components/card';
 import Checkbox from 'components/checkbox';
 import { TasksContext } from 'contexts/TasksContext';
 import { Timestamp } from 'firebase/firestore';
+import InviteCollaborator from './InviteCollab';
 const TaskCard = ({ task }) => {
   const { updateTask, deleteTask } = useContext(TasksContext); // Access context values
-
+  
   const handleMarkComplete = async () => {
     updateTask(task.id, { 
       isComplete: true,
@@ -71,6 +72,7 @@ const TaskCard = ({ task }) => {
           </>
         ) : (
           <>
+            <InviteCollaborator taskId={task.id} onInviteSuccess={() => console.log('Invitation successful!')} />
             <ul className="list-none mt-4">
               {Object.entries(task.subtasks).map(([subtaskName, subtaskObj]) => (
                 <li key={subtaskName} className="flex items-center mb-2">

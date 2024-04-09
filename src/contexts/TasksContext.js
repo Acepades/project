@@ -1,6 +1,6 @@
 import React, { createContext, useState, useEffect } from 'react';
-import { collection, addDoc, getDocs, doc, updateDoc, deleteDoc, query, where, onSnapshot } from 'firebase/firestore'; // Import Firestore functions
-import { db } from 'lib/firebase';// Assuming firebase config
+import { collection, addDoc, getDocs, doc, updateDoc, deleteDoc, query, where, onSnapshot } from 'firebase/firestore';
+import { db } from 'lib/firebase';
 
 const TasksContext = createContext({
   tasks: [],
