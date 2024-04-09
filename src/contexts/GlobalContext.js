@@ -44,15 +44,14 @@ export const ContextProvider = (props) => {
             setUser({ ...docSnapshot.data(), uid: user.uid });
           });
         } else {
-          // User document doesn't exist, create a new one (optional)
+          // User document doesn't exist, create a new one
           const newUser = {
-            level: 1,
+            level: 1, // Add other default fields as needed
             experience: 0,
             req_experience: 100,
             badges: [],
-            username,
+            username: user.email ? user.email.split('@')[0] : '', // Extract username from email (if available)
           };
-          // Automatically create a new user document
           await setDoc(userDocRef, newUser);
           setUser({ ...newUser, uid: user.uid }); // Update user state with initial data
         }
@@ -60,13 +59,13 @@ export const ContextProvider = (props) => {
       } else {
         // User logged out
         setUser(null);
-        setUsername(""); // Reset username on logout
+        setUsername("");
         setIsSignedIn(false);
       }
     });
 
     return unsubscribe;
-  }, [username]);
+  }, []);
 
   const checkUserExists = async (userId) => {
     const userDocRef = doc(usersCollectionRef, userId);
@@ -75,15 +74,14 @@ export const ContextProvider = (props) => {
     return userDocSnap.exists();
   };
 
-
   // Functions handling auth
   const signIn = async (email, password) => {
     try {
       const username = email.split('@')[0]; // Extract username before "@"
       await signInWithEmailAndPassword(firebaseAuth, email, password);
-      // Update username in Firestore
+      // Update username and other fields in Firestore
       const userDocRef = doc(usersCollectionRef, firebaseAuth.currentUser.uid);
-      await setDoc(userDocRef, { username });
+      await setDoc(userDocRef, { username, /* other fields */ });
       // Update username in context
       setUsername(username);
       return;
@@ -97,10 +95,13 @@ export const ContextProvider = (props) => {
     try {
       const username = email.split('@')[0]; // Extract username before "@"
       await createUserWithEmailAndPassword(firebaseAuth, email, password);
-      // Create user document with extracted username
+      // Create user document with extracted username and other fields
       const userDocRef = doc(usersCollectionRef, firebaseAuth.currentUser.uid);
       const newUser = {
-        // ...other fields
+        level: 1, // Add other default fields as needed
+        experience: 0,
+        req_experience: 100,
+        badges: [],
         username,
       };
       await setDoc(userDocRef, newUser);
@@ -130,9 +131,12 @@ export const ContextProvider = (props) => {
       if (user.profile) {
         const username = user.profile.name.split(' ')[0]; // Extract first name
 
-        // Update username in Firestore and context
+        // Update username and other fields in Firestore (if available from profile)
         const userDocRef = doc(usersCollectionRef, user.uid);
-        await setDoc(userDocRef, { username });
+        await setDoc(userDocRef, {
+          username,
+          ...(user.profile.email ? { email: user.profile.email } : {}), // Add email if available
+        });
         setUsername(username);
       } else {
         console.log('No profile information available from Google Sign-in.');
