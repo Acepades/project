@@ -8,7 +8,7 @@ const TaskComponent = () => {
   const [taskData, setTaskData] = useState({
     title: '',
     description: '',
-    exp_to_gain: 0,
+    Task_exp: 0,
     isComplete: false,
     subtasks: {}, // Map to store subtasks with completion state
     createdBy: auth.currentUser?.uid,
@@ -62,7 +62,7 @@ const TaskComponent = () => {
     const newTask = {
       title: taskData.title,
       description: taskData.description,
-      exp_to_gain: taskData.exp_to_gain,
+      Task_exp: Number(taskData.Task_exp),
       isComplete: taskData.isComplete,
       subtasks: Object.fromEntries( // Convert map to object for Firestore
         Object.entries(taskData.subtasks).map(([subtaskName, subtaskObj]) => [
@@ -82,12 +82,11 @@ const TaskComponent = () => {
       newTask.id = taskDocRef.id; // Assign auto-generated ID to task object
 
       console.log('Task created successfully! ID:', newTask.id);
-
       // Clear form fields and set newTask with ID (optional for form reset or state management)
       setTaskData({
         title: '',
         description: '',
-        exp_to_gain: '',
+        Task_exp: 0,
         isComplete: false,
         subtasks: {},
         createdBy: auth.currentUser?.uid,
@@ -131,10 +130,10 @@ const TaskComponent = () => {
         </label>
         <input
           type="number"
-          value={taskData.exp_to_gain}
+          value={taskData.Task_exp}
           onChange={handleChange}
           placeholder="Enter experience points to gain"
-          name="exp_to_gain"
+          name="Task_exp"
         />
 
         <div>
@@ -173,4 +172,3 @@ const TaskComponent = () => {
 };
 
 export default TaskComponent;
-

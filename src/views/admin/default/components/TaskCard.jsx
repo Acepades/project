@@ -6,12 +6,11 @@ import { Timestamp } from 'firebase/firestore';
 import InviteCollaborator from './InviteCollab';
 const TaskCard = ({ task }) => {
   const { updateTask, deleteTask } = useContext(TasksContext); // Access context values
-  
+
   const handleMarkComplete = async () => {
     updateTask(task.id, { 
       isComplete: true,
       completedAt: Timestamp.now(), }); // Use updateTask from context
-    console.log("done")
   };
 
   const handleDeleteTask = async () => {
@@ -39,9 +38,9 @@ const TaskCard = ({ task }) => {
       <li key={task.id} className="m-3">
         <h3 className="font-bold text-lg mb-2 mt-2">{task.title}</h3>
         <p className="text-gray-700 mb-2">{task.description}</p>
-        {task.exp_to_gain > 0 && (
+        {task.Task_exp > 0 && (
           <p className="font-medium text-gray-500">
-            <b>Experience Points:</b> {task.exp_to_gain}
+            <b>Experience Points:</b> {task.Task_exp}
           </p>
         )}
         <p className="text-gray-500 text-sm">
