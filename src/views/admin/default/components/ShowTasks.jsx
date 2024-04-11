@@ -10,7 +10,11 @@ const ShowTasks = () => {
   // Fetch tasks on component mount and listen for changes
   useEffect(() => {
     const unsubscribe = onSnapshot(
-      query(collection(db, 'Tasks'), where('createdBy', '==', auth.currentUser?.uid),where('isComplete', '==', false)),
+      query(collection(db, 'Tasks'), 
+      where('createdBy', '==', auth.currentUser?.uid),
+      where('isComplete', '==', false),
+      where('isCollab', '==', false)),
+      
       (querySnapshot) => {
         const newTasks = querySnapshot.docs.map((doc) => ({
           id: doc.id,
@@ -50,7 +54,10 @@ const ShowCompletedTasks = () => {
   // Fetch tasks on component mount and listen for changes
   useEffect(() => {
     const unsubscribe = onSnapshot(
-      query(collection(db, 'Tasks'), where('createdBy', '==', auth.currentUser?.uid),where('isComplete', '==', true)),
+      query(collection(db, 'Tasks'),
+        where('createdBy', '==', auth.currentUser?.uid),
+        where('isComplete', '==', true),
+        where('isCollab', '==', false)),
       (querySnapshot) => {
         const newTasks = querySnapshot.docs.map((doc) => ({
           id: doc.id,

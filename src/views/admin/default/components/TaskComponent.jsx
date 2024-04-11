@@ -73,7 +73,7 @@ const TaskComponent = () => {
       createdBy: auth.currentUser?.uid,
       createdAt: Timestamp.now(),
       isCollab: false,
-      collaborators: [],
+      collaborators: [auth.currentUser?.uid],
     };
 
     try {
@@ -92,7 +92,7 @@ const TaskComponent = () => {
         createdBy: auth.currentUser?.uid,
         createdAt: Timestamp.now(),
         isCollab: false,
-        collaborators: [],
+        collaborators: [auth.currentUser?.uid],
       });
 
       setNewSubtask('');

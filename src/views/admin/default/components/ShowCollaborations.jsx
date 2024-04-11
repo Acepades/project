@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { collection, query, where, onSnapshot} from 'firebase/firestore'; // Import v9 functions
 import auth from 'lib/firebase'; // Assuming auth configuration
-import TaskCard from './TaskCard'; // Assuming TaskCard component path
+import CollabCard from './CollabCard'; // Assuming TaskCard component path
 import { db } from 'lib/firebase'; // Assuming database reference
 
 const ShowCollaborations = () => {
@@ -11,7 +11,9 @@ const ShowCollaborations = () => {
   useEffect(() => {
     const unsubscribe = onSnapshot(
       query(collection(db, 'Tasks')
-      ,where('collaborators', 'array-contains', auth.currentUser.uid)),
+      ,where('collaborators', 'array-contains', auth.currentUser.uid)
+      ,where('isCollab', '==', true)
+      ,where('isComplete', '==', false)),
       (querySnapshot) => {
         const newTasks = querySnapshot.docs.map((doc) => ({
           id: doc.id,
@@ -36,7 +38,7 @@ const ShowCollaborations = () => {
       ) : (
         <ul className='flex flex-col space-y-4'>
           {tasks.map((task) => (
-            <TaskCard
+            <CollabCard
               key={task.id}
               task={task}
             />
@@ -52,7 +54,10 @@ const ShowCompletedCollaborations = () => {
   // Fetch tasks on component mount and listen for changes
   useEffect(() => {
     const unsubscribe = onSnapshot(
-      query(collection(db, 'Tasks'), where('createdBy', '==', auth.currentUser?.uid),where('isComplete', '==', true)),
+      query(collection(db, 'Tasks'),
+       where('createdBy', '==', auth.currentUser?.uid),
+       where('isComplete', '==', true),
+       where('isCollab','==', true)),
       (querySnapshot) => {
         const newTasks = querySnapshot.docs.map((doc) => ({
           id: doc.id,
@@ -70,13 +75,13 @@ const ShowCompletedCollaborations = () => {
 
   return (
     <div >
-      <h2 className='bold'>Task History</h2>
+      <h2 className='bold'>Collaborations History</h2>
       {tasks.length === 0 ? (
-        <p>You haven't completed any tasks.</p>
+        <p>You haven't completed any collaborations.</p>
       ) : (
         <ul className="flex flex-col space-y-4">
           {tasks.map((task) => (
-            <TaskCard
+            <CollabCard
               key={task.id}
               task={task}
             />
