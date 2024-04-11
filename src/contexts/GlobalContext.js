@@ -16,7 +16,7 @@ import { getDoc, setDoc, doc } from 'firebase/firestore';
 import firebaseAuth from 'lib/firebase';
 // User collection reference
 import { collection, onSnapshot } from 'firebase/firestore';
-import { db } from 'lib/firebase'; // Assuming you export db from firebase.js
+import { db } from 'lib/firebase'; 
 const usersCollectionRef = collection(db, "Users");
 
 // Google oauth provider
@@ -67,12 +67,7 @@ export const ContextProvider = (props) => {
     return unsubscribe;
   }, []);
 
-  const checkUserExists = async (userId) => {
-    const userDocRef = doc(usersCollectionRef, userId);
-    const userDocSnap = await getDoc(userDocRef);
-    console.log(userDocSnap.exists());
-    return userDocSnap.exists();
-  };
+
 
   // Functions handling auth
   const signIn = async (email, password) => {
@@ -156,7 +151,6 @@ export const ContextProvider = (props) => {
         signUp,
         signOut,
         googleSignIn,
-        checkUserExists,
         username,
         setUsername,
       }}

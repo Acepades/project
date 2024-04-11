@@ -71,7 +71,7 @@ const TaskCard = ({ task }) => {
           </>
         ) : (
           <>
-            <InviteCollaborator taskId={task.id} onInviteSuccess={() => console.log('Invitation successful!')} />
+            <InviteCollaborator taskId={task.id}  />
             <ul className="list-none mt-4">
               {Object.entries(task.subtasks).map(([subtaskName, subtaskObj]) => (
                 <li key={subtaskName} className="flex items-center mb-2">

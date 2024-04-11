@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { collection, query, where, onSnapshot,or} from 'firebase/firestore'; // Import v9 functions
+import { collection, query, where, onSnapshot} from 'firebase/firestore'; // Import v9 functions
 import auth from 'lib/firebase'; // Assuming auth configuration
 import TaskCard from './TaskCard'; // Assuming TaskCard component path
 import { db } from 'lib/firebase'; // Assuming database reference
@@ -17,7 +17,7 @@ const ShowCollaborations = () => {
           id: doc.id,
           ...doc.data(),
         }));
-        console.log(newTasks)
+        console.log(newTasks, "new tasks in the collabs")
         setTasks(newTasks);
       },
       (error) => {
