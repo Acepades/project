@@ -1,15 +1,15 @@
 import React, { useState, useEffect, useContext } from 'react';
-import Card from 'components/card'; // Assuming Card component import
-import Checkbox from 'components/checkbox'; // Assuming Checkbox component import
-import { TasksContext } from 'contexts/TasksContext'; // Assuming context import
-import { Timestamp } from 'firebase/firestore'; // Assuming Timestamp import
+import Card from 'components/card';
+import Checkbox from 'components/checkbox';
+import { TasksContext } from 'contexts/TasksContext';
+import { Timestamp } from 'firebase/firestore';
 import InviteCollaborator from './InviteCollab';
 import { collection, getDocs, query, where } from 'firebase/firestore'; // Import v9 Firestore functions
-import { db } from 'lib/firebase'; // Assuming database reference import
+import { db } from 'lib/firebase'; 
 import auth from 'lib/firebase';
 const CollabCard = ({ task }) => {
-  const { updateTask, deleteTask } = useContext(TasksContext); // Access context values
-  const [collaboratorUsernames, setCollaboratorUsernames] = useState({}); // State for collaborator usernames
+  const { updateTask, deleteTask } = useContext(TasksContext);
+  const [collaboratorUsernames, setCollaboratorUsernames] = useState({});
 
   // Fetch usernames for collaborators on component mount
   useEffect(() => {
@@ -35,10 +35,10 @@ const CollabCard = ({ task }) => {
       }
       setCollaboratorUsernames(usernames);
     };
-  
+
     fetchUsernames();
   }, [task.collaborators]);
-  
+
    // Re-run on collaborator list change
 
   const handleMarkComplete = async () => {
@@ -73,7 +73,7 @@ const CollabCard = ({ task }) => {
       return task.collaborators.map((collaboratorId) => (
         <span key={collaboratorId}>
           {collaboratorId === auth.currentUser?.uid ? 'You' : collaboratorUsernames[collaboratorId] || collaboratorId}
-          {task.collaborators.length > 1 && ', '} {/* Add comma and space except for last collaborator */}
+          {task.collaborators.length > 1 && ', '}
         </span>
       ));
     }
@@ -100,11 +100,11 @@ const CollabCard = ({ task }) => {
               {/* Disable subtask checkboxes for completed tasks */}
               {Object.entries(task.subtasks).map(([subtaskName, subtaskObj]) => (
                 <li key={subtaskName} className="flex items-center mb-2">
-                  <Checkbox
+                  <input
                     type="checkbox"
                     id={subtaskName}
                     checked={subtaskObj.isComplete} // Always show checked for completed tasks
-                    className="mr-2 h-5 w-5 rounded focus:ring-0 focus:ring-offset-0 focus:outline-none focus:ring-primary-500 disabled:opacity-50 cursor-not-allowed" // Disable checkbox interaction
+                    className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" // Disable checkbox interaction
                     disabled={true} // Set checkbox as disabled
                   />
                   <label htmlFor={subtaskName} className="text-gray-700 line-through"> {/* Add line-through for completed subtasks */}
@@ -127,7 +127,7 @@ const CollabCard = ({ task }) => {
                     type="checkbox"
                     id={subtaskName}
                     checked={subtaskObj.isComplete}
-                    className="mr-2 h-5 w-5 rounded focus:ring-0 focus:ring-offset-0 focus:outline-none focus:ring-primary-500"
+                    className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
                     onChange={() => handleSubtaskCheck(subtaskName)} // Enable for incomplete tasks
                   />
                   <label htmlFor={subtaskName} className="text-gray-700">
