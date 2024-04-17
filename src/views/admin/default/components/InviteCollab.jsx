@@ -24,7 +24,7 @@ const InviteCollaborator = ({taskId}) => {
     });
 
     return unsubscribe;
-  }, []);
+  });
 
   const handleInviteClick = () => {
     setInviteValue(''); // Clear previous invite value

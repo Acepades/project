@@ -1,7 +1,6 @@
 import React from "react";
 import avatar from "assets/img/avatars/avatar11.png";
 import avatarr from "assets/img/avatars/avatarSimmmple.png";
-import banner from "assets/img/profile/banner.png";
 import Card from "components/card";
 import { FcRating, FcRatings } from "react-icons/fc";
 
