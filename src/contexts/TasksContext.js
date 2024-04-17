@@ -12,7 +12,7 @@ const TasksContext = createContext({
 });
 
 const tasksCollectionRef = collection(db, "Tasks");
-const TasksProvider = ({ children }) => { 
+const TasksProvider = ({ children }) => {
   const [tasks, setTasks] = useState([]);
 
   useEffect(() => {

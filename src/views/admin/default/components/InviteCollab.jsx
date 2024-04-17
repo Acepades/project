@@ -1,64 +1,105 @@
-import React, { useState, useContext } from 'react';
-import { addDoc, collection, doc, updateDoc, getDoc } from 'firebase/firestore'; // Import v9 functions
-import { db } from 'lib/firebase'; // Assuming database reference
-import { GlobalContext } from 'contexts/GlobalContext'; // Assuming GlobalContext path
+import React, { useState, useEffect } from 'react'; // Import useEffect for user data fetching
+import { addDoc, collection, doc, getDoc, getDocs, query, where } from 'firebase/firestore';
+import { db } from 'lib/firebase';
+import auth from 'lib/firebase';
 
-const InviteCollaborator = ({ taskId, onInviteSuccess }) => {
-  const [userId, setUserId] = useState('');
+const InviteCollaborator = ({taskId}) => {
+  const [inviteValue, setInviteValue] = useState('');
   const [error, setError] = useState('');
   const [isLoading, setIsLoading] = useState(false); // Loading state
   const [showForm, setShowForm] = useState(false); // State for form visibility
-  const { checkUserExists } = useContext(GlobalContext);
+  const usersCollectionRef = collection(db, "Users");
+  const [senderUsername, setSenderUsername] = useState(''); // State for sender username
+
+  // Fetch current user data on component mount (assuming username is a field)
+  useEffect(() => {
+    const unsubscribe = auth.onAuthStateChanged(async (user) => {
+      if (user) {
+        const userDocRef = doc(usersCollectionRef, user.uid);
+        const userDocSnap = await getDoc(userDocRef);
+        if (userDocSnap.exists()) {
+          setSenderUsername(userDocSnap.data().username); // Set username from user data
+        }
+      }
+    });
+
+    return unsubscribe;
+  }, []);
 
   const handleInviteClick = () => {
-    setUserId(''); // Clear previous user ID
+    setInviteValue(''); // Clear previous invite value
     setError(''); // Clear previous errors
     setShowForm(!showForm); // Toggle form visibility on click
+  };
+
+  const checkUserExistsByUsername = async (username) => {
+    const q = query(usersCollectionRef, where('username', '==', username));
+    const userSnap = await getDocs(q);
+    return userSnap.empty ? null : userSnap.docs[0].id; // Return invited user's id ( the document id )
+  };
+
+  const checkUserExistsById = async (userId) => {
+    const userDocRef = doc(usersCollectionRef, userId);
+    const userDocSnap = await getDoc(userDocRef);
+    return userDocSnap.exists() ? userDocSnap.data() : null; // Return user data or null
   };
 
   const handleInviteSubmit = async (event) => {
     event.preventDefault();
 
-    if (!userId) {
-      setError('Please enter a user ID.');
+    if (!inviteValue) {
+      setError('Please enter a user ID or username.');
       return;
     }
 
     setIsLoading(true);
 
     try {
-      // Check user existence
-      const userExists = await checkUserExists(userId);
-      setIsLoading(false); // Clear loading state after check
+      let userId;
 
-      if (!userExists) {
+      // Check by username first
+      const userByUserName = await checkUserExistsByUsername(inviteValue);
+
+      if (userByUserName) {
+        userId = userByUserName; // Use ID from username check if found
+      } else {
+        // Check by ID if username check fails
+        const userById = await checkUserExistsById(inviteValue);
+        userId = userById ? inviteValue : null; // Set userId based on ID check
+      }
+
+      if (!userId) {
         throw new Error('User does not exist.');
       }
 
-      // Get the task document data
-      const taskRef = doc(db, 'Tasks', taskId);
-      const taskSnap = await getDoc(taskRef);
-
-      if (!taskSnap.exists) {
-        throw new Error('Task document does not exist.'); // Handle non-existent task
+      // Check if inviting yourself
+      if (userId === auth.currentUser?.uid) {
+        throw new Error('You cannot invite yourself.');
       }
 
-      const taskData = taskSnap.data();
+      // Check for existing invitations
+      const notificationsRef = collection(db, 'Notifications');
+      const q = query(
+        notificationsRef,
+        where('taskId', '==', taskId),
+        where('receiver', '==', userId)
+      );
+      const querySnap = await getDocs(q);
 
-      // Check if user ID is already in collaborators list
-      if (taskData.collaborators && taskData.collaborators.includes(userId)) {
-        throw new Error('User already invited.'); // Throw custom error
+      if (!querySnap.empty) {
+        throw new Error('User already invited for this task.');
       }
 
       // Invitation logic for existing user (excluding existing collaborators)
-      await updateDoc(taskRef, {
-        collaborators: [...(taskData.collaborators || []), userId],
-        isCollab: true, // Set isCollab to true on invite
+      await addDoc(notificationsRef, {
+        sender: auth.currentUser?.uid,
+        senderUsername, // Use senderUsername from state
+        receiver: userId,
+        taskId,
       });
 
-      setUserId(''); // Clear input field
-      setError('Invitation Successful!'); // Display success message
-      onInviteSuccess?.(); // Optional callback if provided
+      setInviteValue(''); // Clear input field
+      setError('Invitation Sent!'); // Display success message
     } catch (error) {
       setError(error.message); // Display specific error messages
     } finally {
@@ -72,24 +113,24 @@ const InviteCollaborator = ({ taskId, onInviteSuccess }) => {
         {isLoading ? 'Checking...' : 'Invite Collaborator'}
       </button>
       {showForm && (
-      <form onSubmit={handleInviteSubmit}>
-        <div className="flex items-center mb-2">
-          <label htmlFor="userId" className="mr-2 text-sm">
-            User ID:
-          </label>
-          <input
-            type="text"
-            id="userId"
-            value={userId}
-            onChange={(e) => setUserId(e.target.value)}
-            className="border border-gray-300 rounded px-2 py-1 w-full"
-          />
-          <button type="submit" className="btn-primary ml-2" disabled={isLoading}>
-            {isLoading ? 'Checking...' : 'Invite'}
-          </button>
-        </div>
-        {error && <p className="text-red-500 mt-2">{error}</p>}
-      </form>
+        <form onSubmit={handleInviteSubmit}>
+          <div className="flex items-center mb-2">
+            <label htmlFor="inviteValue" className="mr-2 text-sm">
+              User ID or Username:
+            </label>
+            <input
+              type="text"
+              id="inviteValue"
+              value={inviteValue}
+              onChange={(e) => setInviteValue(e.target.value)}
+              className="border border-gray-300 rounded px-2 py-1 w-full"
+            />
+            <button type="submit" className="btn-primary ml-2" disabled={isLoading}>
+              {isLoading ? 'Checking...' : 'Invite'}
+            </button>
+          </div>
+          {error && <p className="text-red-500 mt-2">{error}</p>}
+        </form>
       )}
     </div>
   );

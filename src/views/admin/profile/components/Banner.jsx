@@ -85,7 +85,28 @@ const Banner = () => {
                   </div>
                   <div className="w-[15%]">500 / 1000</div>
                 </div>
-                
+                <div
+                  className="flex-col, flex w-[100%] "
+                  style={{
+                    marginTop: "2%",
+                    alignItems: "center",
+                    justifyContent: "space-around",
+                  }}
+                >
+                  <div>
+                    <FcRatings className="mr-1 h-[5vh] w-[100%] " />
+                  </div>
+                  <div
+                    className=" flex h-5 w-full items-center rounded-lg bg-lightPrimary dark:!bg-navy-700 "
+                    style={{ height: "4vh", width: "75%" }}
+                  >
+                    <span
+                      className="h-full w-2/3 rounded-lg dark:!bg-white"
+                      style={{ height: "4vh", backgroundColor: '#b00ffb' }}
+                    />
+                  </div>
+                  <div className="w-[15%]">500 / 1000</div>
+                </div>
                </div>
               </div>
             </div>
