@@ -15,7 +15,7 @@ const TaskComponent = () => {
     createdBy: auth.currentUser?.uid,
     createdAt: Timestamp.now(), // Use Firebase v9 Timestamp
     isCollab: false,
-    collaborators: [],
+    collaborators: [auth.currentUser?.uid],
   });
 
   const [newSubtask, setNewSubtask] = useState('');
@@ -74,7 +74,7 @@ const TaskComponent = () => {
       createdBy: auth.currentUser?.uid,
       createdAt: Timestamp.now(),
       isCollab: false,
-      collaborators: [],
+      collaborators: [auth.currentUser?.uid],
     };
 
     try {
@@ -94,7 +94,7 @@ const TaskComponent = () => {
         createdBy: auth.currentUser?.uid,
         createdAt: Timestamp.now(),
         isCollab: false,
-        collaborators: [],
+        collaborators: [auth.currentUser?.uid],
       });
 
       setNewSubtask('');
