@@ -7,9 +7,15 @@ import InviteCollaborator from './InviteCollab';
 import { collection, getDocs, query, where } from 'firebase/firestore'; // Import v9 Firestore functions
 import { db } from 'lib/firebase'; 
 import auth from 'lib/firebase';
+import { PointsContext } from './PointsContext';
+import { useTasks } from 'contexts/TasksContext';
+
 const CollabCard = ({ task }) => {
   const { updateTask, deleteTask } = useContext(TasksContext);
   const [collaboratorUsernames, setCollaboratorUsernames] = useState({});
+  const { addPointsToAllUsers } = useContext(PointsContext);
+  const { currentTask, setCurrentTask } = useTasks();
+
 
   // Fetch usernames for collaborators on component mount
   useEffect(() => {
@@ -41,11 +47,30 @@ const CollabCard = ({ task }) => {
 
    // Re-run on collaborator list change
 
-  const handleMarkComplete = async () => {
-    updateTask(task.id, {
-      isComplete: true,
-      completedAt: Timestamp.now(),
-    }); // Use updateTask from context
+   const handleMarkComplete = async () => {
+    if (task) {
+      try {
+        await updateTask(task.id, {
+          isComplete: true,
+          completedAt: Timestamp.now(),
+        });
+
+        // Award points to all collaborators (including yourself)
+        const collaborators = [...task.collaborators, task.createdBy]; // Add current user to collaborator list
+        const pointsToAdd = parseInt(task.exp_to_gain); // Ensure points is a number
+
+        collaborators.forEach(async (collaboratorId) => {
+          // Update collaborator's points using PointsContext
+          addPointsToAllUsers(pointsToAdd, collaboratorId);
+        });
+
+        console.log("Task marked complete and points awarded");
+      } catch (error) {
+        console.error('Error marking task as complete:', error);
+      }
+    } else {
+      console.error('Task is null');
+    }
   };
 
   const handleDeleteTask = async () => {

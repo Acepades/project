@@ -12,7 +12,7 @@ const PointsSystem = () => {
     description: '',
     exp_to_gain: 1,
     isComplete: false,
-    subtasks: {}, // Map to store subtasks with completion state
+    subtasks: {}, // Map to store subtasks wit  h completion state
     createdBy: auth.currentUser?.uid,
     createdAt: Timestamp.now(), 
     isCollab: false,
@@ -55,7 +55,7 @@ const PointsSystem = () => {
             style={{ height: '4vh', width: '75%' }}
           >
             <span
-              className="h-full w-2/5 rounded-lg  dark:!bg-white"
+              className="h-full w-2/5 rounded-lg  dark:!bg-white"
               style={{ height: '4vh', backgroundColor: '#3844F4' }}
             />
           </div>

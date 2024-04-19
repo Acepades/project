@@ -1,4 +1,4 @@
-import React, { createContext, useState, useEffect } from 'react';
+import React, { createContext, useState, useEffect , useContext } from 'react';
 import { collection, addDoc, getDocs, doc, updateDoc, deleteDoc, query, where, onSnapshot } from 'firebase/firestore';
 import { db } from 'lib/firebase';
 
@@ -9,11 +9,17 @@ const TasksContext = createContext({
   getTasks: () => {},
   updateTask: () => {},
   deleteTask: () => {},
+  currentTask: null, // Add currentTask state
+  setCurrentTask: () => {}, // Add setCurrentTask function
 });
+export const useTasks = () => useContext(TasksContext);
+
 
 const tasksCollectionRef = collection(db, "Tasks");
 const TasksProvider = ({ children }) => {
   const [tasks, setTasks] = useState([]);
+  const [currentTask, setCurrentTask] = useState(null); // Initialize currentTask state
+
 
   useEffect(() => {
     const unsubscribe = onSnapshot(tasksCollectionRef, (querySnapshot) => {
@@ -78,7 +84,7 @@ const TasksProvider = ({ children }) => {
   };
 
   return (
-    <TasksContext.Provider value={{ tasks, setTasks, createTask, getTasks, updateTask, deleteTask }}>
+    <TasksContext.Provider value={{ tasks, setTasks, createTask, getTasks, updateTask, deleteTask ,currentTask , setCurrentTask }}>
       {children}
     </TasksContext.Provider>
   );
