@@ -1,16 +1,25 @@
-import React, { useContext }  from 'react';
+import React, { useContext , useState  }  from 'react';
 import Card from 'components/card';
 import Checkbox from 'components/checkbox';
 import { TasksContext } from 'contexts/TasksContext';
 import { Timestamp } from 'firebase/firestore';
 import InviteCollaborator from './InviteCollab';
+import { PointsContext } from './PointsContext.jsx';
 const TaskCard = ({ task }) => {
   const { updateTask, deleteTask } = useContext(TasksContext); // Access context values
-
+  // Ajoutez l'accès au contexte du système de points
+  const { totalPoints, expToNextLevel, level,addPoints } = useContext(PointsContext);
   const handleMarkComplete = async () => {
-    updateTask(task.id, { 
-      isComplete: true,
-      completedAt: Timestamp.now(), }); // Use updateTask from context
+    try {
+      await updateTask(task.id, { 
+        isComplete: true,
+        completedAt: Timestamp.now(),
+      });
+      addPoints(parseInt(task.exp_to_gain)); // Ajouter les points exp_to_gain au système de points
+      console.log("done",);
+    } catch (error) {
+      console.error('Error marking task as complete:', error);
+    }
   };
 
   const handleDeleteTask = async () => {
@@ -38,9 +47,9 @@ const TaskCard = ({ task }) => {
       <li key={task.id} className="m-3">
         <h3 className="font-bold text-lg mb-2 mt-2">{task.title}</h3>
         <p className="text-gray-700 mb-2">{task.description}</p>
-        {task.Task_exp > 0 && (
+        {task.exp_to_gain > 0 && (
           <p className="font-medium text-gray-500">
-            <b>Experience Points:</b> {task.Task_exp}
+            <b>Experience Points:</b> {task.exp_to_gain}
           </p>
         )}
         <p className="text-gray-500 text-sm">
@@ -71,7 +80,7 @@ const TaskCard = ({ task }) => {
           </>
         ) : (
           <>
-            <InviteCollaborator taskId={task.id}  />
+            <InviteCollaborator taskId={task.id} onInviteSuccess={() => console.log('Invitation successful!')} />
             <ul className="list-none mt-4">
               {Object.entries(task.subtasks).map(([subtaskName, subtaskObj]) => (
                 <li key={subtaskName} className="flex items-center mb-2">

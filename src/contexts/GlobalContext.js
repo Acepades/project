@@ -153,6 +153,7 @@ export const ContextProvider = (props) => {
         googleSignIn,
         username,
         setUsername,
+        userId: user?.uid, // Access uid using optional chaining
       }}
     >
       {props.children}

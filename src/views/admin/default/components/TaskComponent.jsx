@@ -4,11 +4,12 @@ import auth from 'lib/firebase';
 import { Timestamp,collection,addDoc } from 'firebase/firestore';
 import { db } from 'lib/firebase';
 
+
 const TaskComponent = () => {
   const [taskData, setTaskData] = useState({
     title: '',
     description: '',
-    Task_exp: 0,
+    exp_to_gain: 1,
     isComplete: false,
     subtasks: {}, // Map to store subtasks with completion state
     createdBy: auth.currentUser?.uid,
@@ -62,7 +63,7 @@ const TaskComponent = () => {
     const newTask = {
       title: taskData.title,
       description: taskData.description,
-      Task_exp: Number(taskData.Task_exp),
+      exp_to_gain: taskData.exp_to_gain,
       isComplete: taskData.isComplete,
       subtasks: Object.fromEntries( // Convert map to object for Firestore
         Object.entries(taskData.subtasks).map(([subtaskName, subtaskObj]) => [
@@ -73,7 +74,7 @@ const TaskComponent = () => {
       createdBy: auth.currentUser?.uid,
       createdAt: Timestamp.now(),
       isCollab: false,
-      collaborators: [auth.currentUser?.uid],
+      collaborators: [],
     };
 
     try {
@@ -82,17 +83,18 @@ const TaskComponent = () => {
       newTask.id = taskDocRef.id; // Assign auto-generated ID to task object
 
       console.log('Task created successfully! ID:', newTask.id);
+
       // Clear form fields and set newTask with ID (optional for form reset or state management)
       setTaskData({
         title: '',
         description: '',
-        Task_exp: 0,
+        exp_to_gain: 1,
         isComplete: false,
         subtasks: {},
         createdBy: auth.currentUser?.uid,
         createdAt: Timestamp.now(),
         isCollab: false,
-        collaborators: [auth.currentUser?.uid],
+        collaborators: [],
       });
 
       setNewSubtask('');
@@ -128,12 +130,12 @@ const TaskComponent = () => {
         <label htmlFor="expToGain">
           Experience Points:
         </label>
-        <input
+        <input  
           type="number"
-          value={taskData.Task_exp}
+          value={parseInt(taskData.exp_to_gain)}
           onChange={handleChange}
-          placeholder="Enter experience points to gain"
-          name="Task_exp"
+          placeholder="Enter enter a number between 1 and 100"
+          name="exp_to_gain"
         />
 
         <div>
