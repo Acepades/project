@@ -1,5 +1,6 @@
 import Banner from "./components/Banner";
 import ShowTasks from "../default/components/ShowTasks";
+import UserInfo from "./components/UserInfo";
 const ProfileOverview = () => {
   return (
     <div className="flex w-full flex-col gap-5">
@@ -7,6 +8,7 @@ const ProfileOverview = () => {
         <div className="col-span-12 lg:!mb-0">
           <Banner />
           <ShowTasks/>
+          <UserInfo/>
         </div>
 
       </div>

@@ -10,7 +10,7 @@ import {
 } from 'firebase/auth';
 
 // Firestore functions (for user document interaction)
-import { getDoc, setDoc, doc } from 'firebase/firestore';
+import { getDoc, setDoc, doc, updateDoc } from 'firebase/firestore';
 
 // Firebase auth instance
 import firebaseAuth from 'lib/firebase';
@@ -72,13 +72,11 @@ export const ContextProvider = (props) => {
   // Functions handling auth
   const signIn = async (email, password) => {
     try {
-      const username = email.split('@')[0]; // Extract username before "@"
       await signInWithEmailAndPassword(firebaseAuth, email, password);
       // Update username and other fields in Firestore
       const userDocRef = doc(usersCollectionRef, firebaseAuth.currentUser.uid);
-      await setDoc(userDocRef, { username, /* other fields */ });
+      await setDoc(userDocRef);
       // Update username in context
-      setUsername(username);
       return;
     } catch (err) {
       console.log(err.message);
@@ -140,7 +138,34 @@ export const ContextProvider = (props) => {
       console.log(err.message);
     }
   };
+  const updateExperience = async (newExperience) => {
+    if (!user || !user.uid) {
+      console.error('User not found in context.');
+      return;
+    }
 
+    const userDocRef = doc(usersCollectionRef, user.uid);
+    try {
+      await updateDoc(userDocRef, { experience: newExperience });
+    } catch (err) {
+      console.error('Error updating experience:', err.message);
+    }
+  };
+
+  // Function to add a badge to the user's badges array
+  const addBadge = async (badge) => {
+    if (!user || !user.uid) {
+      console.error('User not found in context.');
+      return;
+    }
+
+    const userDocRef = doc(usersCollectionRef, user.uid);
+    try {
+      await updateDoc(userDocRef, { badges: [...user.badges, badge] });
+    } catch (err) {
+      console.error('Error adding badge:', err.message);
+    }
+  };
   // Context provider
   return (
     <GlobalContext.Provider
@@ -153,6 +178,8 @@ export const ContextProvider = (props) => {
         googleSignIn,
         username,
         setUsername,
+        updateExperience,
+        addBadge,
       }}
     >
       {props.children}
