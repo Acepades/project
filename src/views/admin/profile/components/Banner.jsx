@@ -25,7 +25,7 @@ const Banner = () => {
           >
             <div>
               <img
-                className="  rounded-full "
+                className="rounded-full "
                 src={avatar}
                 alt=""
                 style={{width: '100%', height:'30vh', border:'5px solid gray '}}
@@ -34,8 +34,8 @@ const Banner = () => {
           </div>
 
           {/* Name and position */}
-          <div className="w-[66%]" style={{ padding: "0% 0% 0% 2%" }}>
-            <div style={{ justifyContent: "space-between" }}>
+          <div className="w-[96%]" style={{ padding: "0% 0% 0% 2%" }}>
+            <div>
               <Card  extra={"w-[100%] h-full p-[2%] bg-cover  bg-gray-100 "}>
                 <div
                   style={{ display: "flex", justifyContent: "space-between" }}

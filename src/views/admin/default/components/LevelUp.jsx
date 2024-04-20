@@ -15,7 +15,6 @@ const LevelUp = () => {
       position: 'bottom-center',
       autoClose: 6000,
     });
-    //setAlertShown(true); // Mark alert as shown
   };
 
   useEffect(() => {
@@ -27,17 +26,20 @@ const LevelUp = () => {
       triggerAlert(level);
       // Update stored level for next session (optional)
       localStorage.setItem('currentLevel', level);
+      console.log('Level increased:', level);
     }
 
     // Dependency array: Only run when level or PointsContext changes
   }, [level, PointsContext]);
 
   return (
-    <div>
-      <ToastContainer /> {/* Add ToastContainer here */}
-          <p>Level: {level}</p>
-    </div>  
-  );
+    <div className="flex  items-center">
+      <ToastContainer />
+      <p className="text-sm font-medium mr-4 w-88">Level: {level}</p>
+    </div>
+
+
+);
 };
 
 export default LevelUp;

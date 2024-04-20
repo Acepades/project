@@ -70,7 +70,7 @@ export default function Admin(props) {
         >
           {/* Routes */}
           <div className="h-full">
-            <Navbar
+            <Navbar 
               onOpenSidenav={() => setOpen(true)}
               logoText={"LiveUp"}
               brandText={currentRoute}
