@@ -13,7 +13,7 @@ import { useTasks } from 'contexts/TasksContext';
 const CollabCard = ({ task }) => {
   const { updateTask, deleteTask } = useContext(TasksContext);
   const [collaboratorUsernames, setCollaboratorUsernames] = useState({});
-  const { addPointsToAllUsers } = useContext(PointsContext);
+  const { updatePoints } = useContext(PointsContext);
   const { currentTask, setCurrentTask } = useTasks();
 
 
@@ -54,17 +54,8 @@ const CollabCard = ({ task }) => {
           isComplete: true,
           completedAt: Timestamp.now(),
         });
-
-        // Award points to all collaborators (including yourself)
-        const collaborators = [...task.collaborators, task.createdBy]; // Add current user to collaborator list
-        const pointsToAdd = parseInt(task.exp_to_gain); // Ensure points is a number
-
-        collaborators.forEach(async (collaboratorId) => {
-          // Update collaborator's points using PointsContext
-          addPointsToAllUsers(pointsToAdd, collaboratorId);
-        });
-
-        console.log("Task marked complete and points awarded");
+        await updatePoints(task.collaborators, parseInt(task.exp_to_gain));
+        console.log("done",);
       } catch (error) {
         console.error('Error marking task as complete:', error);
       }

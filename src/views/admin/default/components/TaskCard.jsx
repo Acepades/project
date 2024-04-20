@@ -8,15 +8,15 @@ import { PointsContext } from './PointsContext.jsx';
 const TaskCard = ({ task }) => {
   const { updateTask, deleteTask } = useContext(TasksContext); // Access context values
   // Ajoutez l'accès au contexte du système de points
-  const { totalPoints, expToNextLevel, level,addPoints } = useContext(PointsContext);
+  const {level,updatePoints } = useContext(PointsContext);
   const handleMarkComplete = async () => {
     try {
       await updateTask(task.id, { 
         isComplete: true,
         completedAt: Timestamp.now(),
       });
-      addPoints(parseInt(task.exp_to_gain)); // Ajouter les points exp_to_gain au système de points
-      console.log("done",);
+      await updatePoints(task.collaborators, parseInt(task.exp_to_gain));
+      console.log("done");
     } catch (error) {
       console.error('Error marking task as complete:', error);
     }

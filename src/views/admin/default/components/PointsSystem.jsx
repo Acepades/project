@@ -1,24 +1,13 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, {useEffect, useContext } from 'react';
 import { PointsContext } from './PointsContext.jsx';
 import { FcRating, FcRatings } from "react-icons/fc";
 import auth from 'lib/firebase';
-import { Timestamp , doc , getDoc } from 'firebase/firestore';
+import {doc , getDoc } from 'firebase/firestore';
 import { db } from 'lib/firebase'; // Assuming db is your Firestore instance
 
 
 const PointsSystem = () => {
-  const [taskData, setTaskData] = useState({
-    title: '',
-    description: '',
-    exp_to_gain: 1,
-    isComplete: false,
-    subtasks: {}, // Map to store subtasks wit  h completion state
-    createdBy: auth.currentUser?.uid,
-    createdAt: Timestamp.now(), 
-    isCollab: false,
-    collaborators: [],
-  });
-
+  
   const { totalPoints, expToNextLevel ,setTotalPoints } = useContext(PointsContext);
 
   // Effect to fetch and update user's points from Firestore on component mount
@@ -38,10 +27,6 @@ const PointsSystem = () => {
 
     fetchUserPoints();
   }, []); // Empty dependency array to run only on mount
-
-  useEffect(() => {
-    // You can potentially use taskData for other purposes within PointsSystem
-  }, [taskData]); // Dependency on taskData for potential internal usage
 
   return (
     <div className=", ml-4 w-[90%]">

@@ -5,7 +5,7 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 const LevelUp = () => {
-  const { totalPoints, expToNextLevel, level } = useContext(PointsContext);
+  const { /*totalPoints, expToNextLevel, */level } = useContext(PointsContext);
     const [alertShown, setAlertShown] = useState(false);
 
 
@@ -13,30 +13,29 @@ const LevelUp = () => {
   const triggerAlert = (level) => {
     toast.success(`Congratulations! You have reached level ${level}!`, {
       position: 'bottom-center',
-      autoClose: 7000,
+      autoClose: 6000,
     });
-    setAlertShown(true); // Mark alert as shown
+    //setAlertShown(true); // Mark alert as shown
   };
 
   useEffect(() => {
-    // Check if level has increased (assuming PointsContext updates level)
-    if (level > 1) { // Check if level is greater than 0 to avoid initial trigger
+    const storedLevel = localStorage.getItem('currentLevel');
+    const parsedLevel = storedLevel ? parseInt(storedLevel, 10) : 1; // Default to 1
+
+    // Check if level has increased compared to stored level
+    if (level > parsedLevel) {
       triggerAlert(level);
+      // Update stored level for next session (optional)
+      localStorage.setItem('currentLevel', level);
     }
-  }, [level]);
+
+    // Dependency array: Only run when level or PointsContext changes
+  }, [level, PointsContext]);
 
   return (
     <div>
       <ToastContainer /> {/* Add ToastContainer here */}
-      {totalPoints >= expToNextLevel ? (
-        <div>
           <p>Level: {level}</p>
-        </div>
-      ) : (
-        <div>
-          <p>Level: {level}</p>
-        </div>
-      )}
     </div>  
   );
 };
