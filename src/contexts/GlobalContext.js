@@ -77,13 +77,10 @@ export const ContextProvider = (props) => {
   // Functions handling auth
   const signIn = async (email, password) => {
     try {
-      const username = email.split('@')[0]; // Extract username before "@"
       await signInWithEmailAndPassword(firebaseAuth, email, password);
       // Update username and other fields in Firestore
       const userDocRef = doc(usersCollectionRef, firebaseAuth.currentUser.uid);
-      await setDoc(userDocRef, { username, /* other fields */ });
-      // Update username in context
-      setUsername(username);
+      await setDoc(userDocRef);
       return;
     } catch (err) {
       console.log(err.message);
