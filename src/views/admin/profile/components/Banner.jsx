@@ -3,6 +3,10 @@ import avatar from "assets/img/avatars/avatar11.png";
 import avatarr from "assets/img/avatars/avatarSimmmple.png";
 import Card from "components/card";
 import { FcRating, FcRatings } from "react-icons/fc";
+import LevelUp from  "views/admin/default/components/LevelUp";
+import PointsSystem from "views/admin/default/components/PointsSystem";
+
+
 
 const Banner = () => {
   return (
@@ -53,7 +57,7 @@ const Banner = () => {
                   <p className="text-base font-normal text-gray-600">
                     Full Stack Developer
                   </p>
-                  <p>Niveau 1000</p>
+                  <LevelUp />
                   </div>
                   
                 </div>
@@ -71,18 +75,9 @@ const Banner = () => {
                   }}
                 >
                   <div>
-                    <FcRating className="mr-1 h-[5vh] w-[100%] " />
+                    
+                    <PointsSystem />
                   </div>
-                  <div
-                    className=" flex h-5 w-full items-center rounded-lg bg-lightPrimary dark:!bg-navy-700 "
-                    style={{ height: "4vh", width: "75%" }}
-                  >
-                    <span
-                      className="h-full w-2/5 rounded-lg  dark:!bg-white"
-                      style={{ height: "4vh", backgroundColor: "#3844F4" }}
-                    />
-                  </div>
-                  <div className="w-[15%]">500 / 1000</div>
                 </div>
                 <div
                   className="flex-col, flex w-[100%] "
