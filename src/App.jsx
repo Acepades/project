@@ -2,8 +2,6 @@ import React from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-//import LevelUp from  "views/admin/default/components/LevelUp";
-//import PointsSystem from 'views/admin/default/components/PointsSystem'; // Import du composant PointsSystem
 
 
 import AdminLayout from "layouts/admin";
@@ -13,8 +11,6 @@ const App = () => {
   return (
     <div>
       <ToastContainer />
-{/*      <PointsSystem /> */}
- {/*      <LevelUp /> */}
       <Routes>
         <Route path="auth/*" element={<AuthLayout />} />
         <Route path="admin/*" element={<AdminLayout />} />

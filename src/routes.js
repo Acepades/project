@@ -4,12 +4,17 @@ import React from "react";
 import MainDashboard from "views/admin/default";
 import Profile from "views/admin/profile";
 
+// Auth Imports
+import SignIn from "views/auth/SignIn";
+import SignUp from "views/auth/SignUp";
+import SignOut from "views/auth/SignOut";
 
 // Icon Imports
 import {
   MdHome,
   MdOutlineAdd,
   MdPerson,
+  MdLock,
 } from "react-icons/md";
 
 import { IoIosNotifications } from "react-icons/io";
@@ -60,8 +65,23 @@ const routes = [
     layout: "/auth",
     path: "Log-out",
     icon: <FiLogOut className="h-6 w-6" />,
+    component: <SignOut />,
     navigate: "/auth/sign-in"
-  }
+  },
+  {
+    name: "Sign In",
+    layout: "/auth",
+    path: "sign-in",
+    icon: <MdLock className="h-6 w-6" />,
+    component: <SignIn />,
+  },
+  {
+    name: "Sign Up",
+    layout: "/auth",
+    path: "sign-up",
+    icon: <MdLock className="h-6 w-6" />,
+    component: <SignUp />,
+  },
   
  
 ];
