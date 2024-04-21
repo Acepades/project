@@ -1,24 +1,22 @@
-import { signOut as firebaseSignOut } from 'firebase/auth';
-import firebaseAuth from 'lib/firebase';import { useNavigate } from 'react-router-dom'; // Assuming React Router v6
+import { useEffect } from 'react';
+import { auth } from 'lib/firebase'; // Assuming you have initialized Firebase auth
 
 const SignOut = () => {
-  const navigate = useNavigate();
+  useEffect(() => {
+    const handleSignOut = async () => {
+      try {
+        await auth.signOut();
+        // Redirect to sign-in page after sign-out
+        window.location.href = "/auth/sign-in";
+      } catch (error) {
+        console.error('Error signing out:', error.message);
+      }
+    };
 
-  const handleSignOut = async () => {
-    try {
-      await firebaseSignOut(firebaseAuth);
-      navigate('/auth/sign-in'); // Redirect after signOut
-    } catch (err) {
-      console.log(err.message);
-    }
-  };
+    handleSignOut();
+  }, []);
 
-  return (
-    <div onClick={handleSignOut}>
-      {/* Your logout UI elements */}
-    </div>
-  );
+  return null; // No need to render anything
 };
 
 export default SignOut;
-

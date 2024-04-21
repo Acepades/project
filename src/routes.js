@@ -65,8 +65,7 @@ const routes = [
     layout: "/auth",
     path: "Log-out",
     icon: <FiLogOut className="h-6 w-6" />,
-    component: <SignOut />,
-    navigate: "/auth/sign-in"
+    component: <SignOut /> ,
   },
   {
     name: "Sign In",
