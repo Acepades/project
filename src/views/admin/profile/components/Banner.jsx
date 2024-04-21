@@ -2,11 +2,7 @@ import React from "react";
 import avatar from "assets/img/avatars/avatar11.png";
 import avatarr from "assets/img/avatars/avatarSimmmple.png";
 import Card from "components/card";
-import { FcRatings } from "react-icons/fc";
-import LevelUp from  "views/admin/default/components/LevelUp";
-import PointsSystem from "views/admin/default/components/PointsSystem";
-
-
+import { FcRating, FcRatings } from "react-icons/fc";
 
 const Banner = () => {
   return (
@@ -28,7 +24,7 @@ const Banner = () => {
           >
             <div>
               <img
-                className="rounded-full "
+                className="  rounded-full "
                 src={avatar}
                 alt=""
                 style={{width: '100%', height:'30vh', border:'5px solid gray '}}
@@ -37,8 +33,8 @@ const Banner = () => {
           </div>
 
           {/* Name and position */}
-          <div className="w-[96%]" style={{ padding: "0% 0% 0% 2%" }}>
-            <div>
+          <div className="w-[66%]" style={{ padding: "0% 0% 0% 2%" }}>
+            <div style={{ justifyContent: "space-between" }}>
               <Card  extra={"w-[100%] h-full p-[2%] bg-cover  bg-gray-100 "}>
                 <div
                   style={{ display: "flex", justifyContent: "space-between" }}
@@ -57,7 +53,7 @@ const Banner = () => {
                   <p className="text-base font-normal text-gray-600">
                     Full Stack Developer
                   </p>
-                  <LevelUp />
+                  <p>Niveau 1000</p>
                   </div>
                   
                 </div>
@@ -75,9 +71,18 @@ const Banner = () => {
                   }}
                 >
                   <div>
-                    
-                    <PointsSystem />
+                    <FcRating className="mr-1 h-[5vh] w-[100%] " />
                   </div>
+                  <div
+                    className=" flex h-5 w-full items-center rounded-lg bg-lightPrimary dark:!bg-navy-700 "
+                    style={{ height: "4vh", width: "75%" }}
+                  >
+                    <span
+                      className="h-full w-2/5 rounded-lg  dark:!bg-white"
+                      style={{ height: "4vh", backgroundColor: "#3844F4" }}
+                    />
+                  </div>
+                  <div className="w-[15%]">500 / 1000</div>
                 </div>
                 <div
                   className="flex-col, flex w-[100%] "
