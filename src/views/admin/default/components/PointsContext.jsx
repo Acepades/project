@@ -46,7 +46,7 @@ const updatePoints = async (collaborators, pointsToAdd) => {
         let newLevel = userData.level || 1;
 
         // Update level and experience to next level (if needed)
-        if (newTotalPoints >= newExpToNextLevel) {
+        while (newTotalPoints >= newExpToNextLevel) {
           newTotalPoints -= newExpToNextLevel;
           newExpToNextLevel += 100;
           newLevel++;

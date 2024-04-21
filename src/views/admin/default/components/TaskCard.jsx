@@ -11,7 +11,7 @@ const TaskCard = ({ task }) => {
   const { updateTask, deleteTask } = useContext(TasksContext); // Access context values
 
   // Ajoutez l'accès au contexte du système de points
-  const {level,updatePoints } = useContext(PointsContext);
+  const {updatePoints } = useContext(PointsContext);
   const handleMarkComplete = async () => {
     try {
       await updateTask(task.id, { 

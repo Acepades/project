@@ -7,8 +7,8 @@ const ProfileOverview = () => {
         <div className="col-span-12 lg:!mb-0">
           <Banner />
           <ShowTasks/>
+          <div className="ex mb-1000"></div>
         </div>
-
       </div>
     </div>
   );
