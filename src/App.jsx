@@ -1,7 +1,7 @@
 import React from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
-import { ToastContainer } from 'react-toastify'; // Importez ToastContainer depuis react-toastify
-import 'react-toastify/dist/ReactToastify.css'; // Importez les styles de react-toastify
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 //import LevelUp from  "views/admin/default/components/LevelUp";
 //import PointsSystem from 'views/admin/default/components/PointsSystem'; // Import du composant PointsSystem
 
