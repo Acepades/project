@@ -79,8 +79,6 @@ export const ContextProvider = (props) => {
     try {
       await signInWithEmailAndPassword(firebaseAuth, email, password);
       // Update username and other fields in Firestore
-      const userDocRef = doc(usersCollectionRef, firebaseAuth.currentUser.uid);
-      await setDoc(userDocRef);
       return;
     } catch (err) {
       console.log(err.message);
