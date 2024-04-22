@@ -20,7 +20,7 @@ const Sidebar = ({ open, onClose }) => {
       </span>
 
       <div className={`mx-[56px] mt-[50px] flex items-center`}>
-        <div className="mt-1 ml-1 h-2.5 font-medium  text-[40px] font-bold text-navy-700 dark:text-white">
+        <div className="mt-1 ml-1 h-2.5   text-[40px] font-bold text-navy-700 dark:text-white">
           Live<span className="font-poppins">UP!</span>
         </div>
       </div>

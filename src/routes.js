@@ -7,7 +7,6 @@ import Profile from "views/admin/profile";
 // Auth Imports
 import SignIn from "views/auth/SignIn";
 import SignUp from "views/auth/SignUp";
-import SignOut from "views/auth/SignOut";
 
 // Icon Imports
 import {
@@ -18,11 +17,11 @@ import {
 } from "react-icons/md";
 
 import { IoIosNotifications } from "react-icons/io";
-import Notification from "views/admin/default/components/notifications";
 import { FcCollaboration } from "react-icons/fc";
 import Collaboration from "views/admin/collaboration";
 import { FiLogOut } from "react-icons/fi";
 import TaskComponent from "views/admin/addTask/TaskComponent";
+import Notificationz from "views/admin/Notification";
 
 const routes = [
   {
@@ -58,14 +57,14 @@ const routes = [
     layout: "/admin",
     path: "Notification",
     icon: <IoIosNotifications className="h-6 w-6" />,
-    component: <Notification />,
+    component: <Notificationz />,
   },
   {
     name: "Log Out",
     layout: "/auth",
     path: "Log-out",
     icon: <FiLogOut className="h-6 w-6" />,
-    component: <SignOut /> ,
+    component: <SignIn /> ,
   },
   {
     name: "Sign In",

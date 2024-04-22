@@ -6,8 +6,8 @@ import Card from "components/card";
 import { GlobalContext } from "contexts/GlobalContext";
 import { getDoc, doc } from "firebase/firestore"; // Import Firestore functions
 import { db } from "lib/firebase"; // Import Firestore instance
-import { FcRating } from "react-icons/fc";
-import auth from "lib/firebase";
+
+import PointsSystem from "views/admin/default/components/PointsSystem";
 
 const Banner = () => {
   const { user } = useContext(GlobalContext);
@@ -33,14 +33,15 @@ const Banner = () => {
     return null; // Return null if user data is not available
   }
 
-  const { level, experience, req_experience } = user;
+  const { level } = user;
 
   // Calculate progress percentage (assuming experience is an integer)
-  const progress = Math.floor((experience / req_experience) * 100);
 
   return (
+    <>
+
     <div style={{ display: "flex", justifyContent: "center"  }}>
-      <Card  extra={"w-[80%] h-full p-[2%] bg-cover flex mt-2" }>
+      <Card  extra={"w-[100%] h-full p-[2%] bg-cover flex mt-2" }>
         {/* Conteneur pour les deux divs */}
         <div
           className="flex h-[35vh]"
@@ -92,30 +93,17 @@ const Banner = () => {
                 </div>
               </Card>
 
-              <div className=", ml-4 w-[90%]">
+              <div className=", ml-4 w-[100%]">
                <div  style={{
                     marginTop: "10%", marginLeft:'1%'}}>
                <div
-                  className="flex-col, flex w-[100%] "
+                  className="grid grid-cols-1"
                   style={{
 
                     alignItems: "center",
                     justifyContent: "space-around",
                   }}
-                >
-                  <div>
-                    <FcRating className="mr-1 h-[8vh] w-[100%] " />
-                  </div>
-                  <div
-                    className=" flex h-5 w-full items-center rounded-lg bg-lightPrimary dark:!bg-navy-700 "
-                    style={{ height: "4vh", width: `${progress}%` }}
-                  >
-                    <span
-                      className="h-full w-2/5 rounded-lg  dark:!bg-white"
-                      style={{ height: "4vh", backgroundColor: "#3844F4" }}
-                    />
-                  </div>
-                  <div className="w-flex">{experience} / {req_experience}</div>
+                ><PointsSystem/>
                 </div>
                </div>
               </div>
@@ -124,6 +112,7 @@ const Banner = () => {
         </div>
       </Card>
     </div>
+    </>
   );
 };
 

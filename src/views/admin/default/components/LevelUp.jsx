@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useEffect, useContext } from 'react';
 import { PointsContext } from './PointsContext.jsx';
 import { toast } from 'react-toastify'; // Import toast from react-toastify
 import { ToastContainer } from 'react-toastify';
@@ -29,12 +29,12 @@ const LevelUp = () => {
     }
 
     // Dependency array: Only run when level or PointsContext changes
-  }, [level, PointsContext]);
+  }, [level]);
 
   return (
     <div className="flex  items-center">
       <ToastContainer />
-      <p className="text-sm font-medium mr-4 w-88">Level: {level}</p>
+      <b className="text-sm font-medium mr-4 w-88  dark:text-white">Level: {level}</b>
     </div>
 
 
