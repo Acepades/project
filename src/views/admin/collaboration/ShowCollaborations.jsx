@@ -32,9 +32,9 @@ const ShowCollaborations = () => {
 
   return (
     <div >
-      <h2 style={{fontSize: '20px'}} className="font-bold capitalize hover:text-navy-700 dark:hover:text-white">Your collabs</h2>
+      <h2 style={{fontSize: '20px'}} className="font-bold capitalize hover:text-navy-700 dark:text-white">Your collabs</h2>
       {tasks.length === 0 ? (
-        <p>You don't have any collabs yet.</p>
+        <p className=' dark:text-white'>You don't have any collabs yet.</p>
       ) : (
         <ul className='flex flex-col space-y-4'>
           {tasks.map((task) => (
@@ -75,9 +75,9 @@ const ShowCompletedCollaborations = () => {
 
   return (
     <div >
-      <h2 style={{fontSize: '20px'}} className="font-bold capitalize hover:text-navy-700 dark:hover:text-white">Collaborations History</h2>
+      <h2 style={{fontSize: '20px'}} className="font-bold capitalize hover:text-navy-700 dark:text-white">Collaborations History</h2>
       {tasks.length === 0 ? (
-        <p>You haven't completed any collaborations.</p>
+        <p className=' dark:text-white'>You haven't completed any collaborations.</p>
       ) : (
         <ul className="flex flex-col space-y-4">
           {tasks.map((task) => (

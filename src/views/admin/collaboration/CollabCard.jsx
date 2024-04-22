@@ -163,7 +163,7 @@ const CollabCard = ({ task }) => {
             : ` ${collaboratorUsernames[task.createdBy] || task.createdBy}`}
         </p>
         <p className="text-sm"><b>Collaborators:</b> {renderCollaborators()}</p>
-        <button onClick={handleDeleteTask} className="bg-gray-500 hover:bg-gray-700 text-white font-normal py-2 px-4 rounded">
+        <button onClick={handleDeleteTask} className="bg-gray-500 hover:bg-gray-700 dark:bg-navy-800 text-white dark:text-gray-700 font-normal px-4 rounded">
             Delete
         </button>
         
