@@ -55,7 +55,7 @@ const ShowCompletedCollaborations = () => {
   useEffect(() => {
     const unsubscribe = onSnapshot(
       query(collection(db, 'Tasks'),
-       where('createdBy', '==', auth.currentUser?.uid),
+      where('collaborators', 'array-contains', auth.currentUser.uid),
        where('isComplete', '==', true),
        where('isCollab','==', true)),
       (querySnapshot) => {
