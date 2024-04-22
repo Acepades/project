@@ -6,7 +6,6 @@ import 'react-toastify/dist/ReactToastify.css';
 
 const LevelUp = () => {
   const { /*totalPoints, expToNextLevel, */level } = useContext(PointsContext);
-    const [alertShown, setAlertShown] = useState(false);
 
 
   // Function to trigger the alert (assuming level up logic is in PointsContext)

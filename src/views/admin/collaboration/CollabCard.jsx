@@ -3,11 +3,11 @@ import Card from 'components/card';
 import Checkbox from 'components/checkbox';
 import { TasksContext } from 'contexts/TasksContext';
 import { Timestamp } from 'firebase/firestore';
-import InviteCollaborator from './InviteCollab';
+import InviteCollaborator from '../default/components/InviteCollab';
 import { collection, getDocs, query, where } from 'firebase/firestore'; 
 import { db } from 'lib/firebase'; 
 import auth from 'lib/firebase';
-import { PointsContext } from './PointsContext';
+import { PointsContext } from '../default/components/PointsContext';
 
 const CollabCard = ({ task }) => {
   const { updateTask, deleteTask } = useContext(TasksContext);
@@ -153,20 +153,22 @@ const CollabCard = ({ task }) => {
             <button style={{ background:"linear-gradient(90deg, rgba(56,68,244,1) 0%, rgba(56,78,244,1) 39%, rgba(184,0,255,1) 100%)", color: '#fff', border: 'none', borderRadius: '5px', padding: '8px 16px', cursor: 'pointer', marginLeft: '50%' }}  className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mb-4 mr-2" onClick={handleMarkComplete} disabled={task.isComplete}>
             Complete Task
         </button>
-        <button onClick={handleDeleteTask} className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">
-            Delete
-        </button>
+        
           </>
         )}
         <p className="text-sm">
+          <b>Created by:</b>
           {task.createdBy === auth.currentUser?.uid
-            ? 'Created by: You'
-            : `Created by: ${collaboratorUsernames[task.createdBy] || task.createdBy}`}
+            ? ' You'
+            : ` ${collaboratorUsernames[task.createdBy] || task.createdBy}`}
         </p>
-        <p className="text-sm">Collaborators: {renderCollaborators()}</p>
-        
+        <p className="text-sm"><b>Collaborators:</b> {renderCollaborators()}</p>
+        <button onClick={handleDeleteTask} className="bg-gray-500 hover:bg-gray-700 text-white font-normal py-2 px-4 rounded">
+            Delete
+        </button>
         
       </li>
+      
     </Card>
   );
 }

@@ -20,9 +20,9 @@ import {
 import { IoIosNotifications } from "react-icons/io";
 import Notification from "views/admin/default/components/notifications";
 import { FcCollaboration } from "react-icons/fc";
-import Collaboration from "views/admin/default/components/Collaboration";
+import Collaboration from "views/admin/collaboration";
 import { FiLogOut } from "react-icons/fi";
-import TaskComponent from "views/admin/default/components/TaskComponent";
+import TaskComponent from "views/admin/addTask/TaskComponent";
 
 const routes = [
   {

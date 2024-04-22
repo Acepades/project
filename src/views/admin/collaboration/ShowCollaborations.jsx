@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { collection, query, where, onSnapshot} from 'firebase/firestore'; // Import v9 functions
-import auth from 'lib/firebase'; // Assuming auth configuration
-import CollabCard from './CollabCard'; // Assuming TaskCard component path
-import { db } from 'lib/firebase'; // Assuming database reference
+import auth from 'lib/firebase'; 
+import { db } from 'lib/firebase'; 
+import CollabCard from './CollabCard';
 
 const ShowCollaborations = () => {
   const [tasks, setTasks] = useState([]);

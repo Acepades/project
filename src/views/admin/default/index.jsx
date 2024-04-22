@@ -1,4 +1,4 @@
-import ShowCollaborations, { ShowCompletedCollaborations } from "./components/ShowCollaborations";
+import ShowCollaborations, { ShowCompletedCollaborations } from "../collaboration/ShowCollaborations";
 import ShowTasks, { ShowCompletedTasks } from "./components/ShowTasks";
 const Dashboard = () => {
   return (

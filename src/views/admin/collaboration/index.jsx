@@ -1,6 +1,5 @@
 import React from "react";
 import ShowCollaborations, {ShowCompletedCollaborations } from "./ShowCollaborations";
-import TaskComponent from "./TaskComponent";
 
 function Collaboration() {
   return (
