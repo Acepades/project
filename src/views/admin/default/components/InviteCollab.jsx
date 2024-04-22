@@ -122,7 +122,7 @@ const InviteCollaborator = ({taskId}) => {
           value={inviteValue}
           onChange={(e) => setInviteValue(e.target.value)}
           style={{width: "56%"}}
-          className="border border-gray-300 rounded px-2 py-1 w-full"
+          className="border border-gray-300 dark:bg-gray-700 rounded px-2 py-1 w-full"
         />
         <button type="submit" className="btn-primary w-[15%] bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded ml-2" disabled={isLoading}>
           {isLoading ? 'Checking...' : 'Invite'}

@@ -142,7 +142,7 @@ const TaskComponent = () => {
           Title
         </label>
         <input
-        className="dark:text-white dark:bg-gray-700 dark:text-black"
+        className="dark:text-white dark:bg-gray-700"
           type="text"
           id="taskTitle"
           value={taskData.title}
@@ -170,7 +170,7 @@ const TaskComponent = () => {
           Description (optional)
         </label>
         <textarea
-        className="dark:text-white dark:bg-gray-700 dark:text-black"
+        className="dark:text-white dark:bg-gray-700 "
           id="taskDescription"
           value={taskData.description}
           onChange={handleChange}
@@ -197,7 +197,7 @@ const TaskComponent = () => {
           Experience Points
         </label>
         <input
-        className="dark:text-white dark:bg-gray-700 dark:text-black"
+        className="dark:text-white dark:bg-gray-700 "
           type="number"
           id="expToGain"
           value={taskData.exp_to_gain}
@@ -224,7 +224,7 @@ const TaskComponent = () => {
         }}
       >
         <input
-        className="dark:text-white dark:bg-gray-700 dark:text-black"
+        className="dark:text-white dark:bg-gray-700 "
           type="text"
           id="newSubtask"
           value={newSubtask}
