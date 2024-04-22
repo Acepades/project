@@ -1,10 +1,42 @@
-import React from "react";
+
+import React, { useContext, useEffect, useState } from "react";
 import avatar from "assets/img/avatars/avatar11.png";
 import avatarr from "assets/img/avatars/avatarSimmmple.png";
 import Card from "components/card";
-import { FcRating, FcRatings } from "react-icons/fc";
+import { GlobalContext } from "contexts/GlobalContext";
+import { getDoc, doc } from "firebase/firestore"; // Import Firestore functions
+import { db } from "lib/firebase"; // Import Firestore instance
+import { FcRating } from "react-icons/fc";
 
 const Banner = () => {
+  const { user } = useContext(GlobalContext);
+  const [username, setUsername] = useState("");
+
+  useEffect(() => {
+    const fetchUsername = async () => {
+      if (user) {
+        const userDocRef = doc(db, "Users", user.uid); // Use user's uid
+        const userDocSnap = await getDoc(userDocRef);
+
+        if (userDocSnap.exists()) {
+          const userData = userDocSnap.data();
+          setUsername(userData.username || ""); // Use username if available
+        }
+      }
+    };
+
+    fetchUsername();
+  }, [user]); // Run effect only when user changes
+
+  if (!user) {
+    return null; // Return null if user data is not available
+  }
+
+  const { level, experience, req_experience } = user;
+
+  // Calculate progress percentage (assuming experience is an integer)
+  const progress = Math.floor((experience / req_experience) * 100);
+
   return (
     <div style={{ display: "flex", justifyContent: "center"  }}>
       <Card  extra={"w-[80%] h-full p-[2%] bg-cover flex mt-2" }>
@@ -48,20 +80,19 @@ const Banner = () => {
                   </div>
                   <div className="w-[90%] ml-5">
                   <h4 className="text-xl font-bold text-navy-700 dark:text-white">
-                    Jawaher Trabelsi
+                  {username}
                   </h4>
                   <p className="text-base font-normal text-gray-600">
                     Full Stack Developer
                   </p>
-                  <p>Niveau 1000</p>
+                  <p>Level {level}</p>
                   </div>
-                  
                 </div>
               </Card>
 
               <div className=", ml-4 w-[90%]">
                <div  style={{
-                    marginTop: "5%", marginLeft:'10%'}}>
+                    marginTop: "10%", marginLeft:'1%'}}>
                <div
                   className="flex-col, flex w-[100%] "
                   style={{
@@ -71,40 +102,18 @@ const Banner = () => {
                   }}
                 >
                   <div>
-                    <FcRating className="mr-1 h-[5vh] w-[100%] " />
+                    <FcRating className="mr-1 h-[8vh] w-[100%] " />
                   </div>
                   <div
                     className=" flex h-5 w-full items-center rounded-lg bg-lightPrimary dark:!bg-navy-700 "
-                    style={{ height: "4vh", width: "75%" }}
+                    style={{ height: "4vh", width: `${progress}%` }}
                   >
                     <span
                       className="h-full w-2/5 rounded-lg  dark:!bg-white"
                       style={{ height: "4vh", backgroundColor: "#3844F4" }}
                     />
                   </div>
-                  <div className="w-[15%]">500 / 1000</div>
-                </div>
-                <div
-                  className="flex-col, flex w-[100%] "
-                  style={{
-                    marginTop: "2%",
-                    alignItems: "center",
-                    justifyContent: "space-around",
-                  }}
-                >
-                  <div>
-                    <FcRatings className="mr-1 h-[5vh] w-[100%] " />
-                  </div>
-                  <div
-                    className=" flex h-5 w-full items-center rounded-lg bg-lightPrimary dark:!bg-navy-700 "
-                    style={{ height: "4vh", width: "75%" }}
-                  >
-                    <span
-                      className="h-full w-2/3 rounded-lg dark:!bg-white"
-                      style={{ height: "4vh", backgroundColor: '#b00ffb' }}
-                    />
-                  </div>
-                  <div className="w-[15%]">500 / 1000</div>
+                  <div className="w-flex">{experience} / {req_experience}</div>
                 </div>
                </div>
               </div>
