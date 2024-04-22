@@ -7,6 +7,7 @@ import { GlobalContext } from "contexts/GlobalContext";
 import { getDoc, doc } from "firebase/firestore"; // Import Firestore functions
 import { db } from "lib/firebase"; // Import Firestore instance
 import { FcRating } from "react-icons/fc";
+import auth from "lib/firebase";
 
 const Banner = () => {
   const { user } = useContext(GlobalContext);
@@ -86,6 +87,7 @@ const Banner = () => {
                     Full Stack Developer
                   </p>
                   <p>Level {level}</p>
+                  <p className="text-base font-normal text-gray-600">InviteID : {user.uid}</p>
                   </div>
                 </div>
               </Card>

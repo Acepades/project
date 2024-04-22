@@ -105,9 +105,10 @@ const TaskComponent = () => {
   };
 
   return (
+    <>
+    <div style={{ height: "5vh" }}></div>
     <Card
       style={{
-        marginTop: "40px",
         padding: "2%",
         border: "0px solid #ccc",
         borderRadius: "15px",
@@ -118,10 +119,10 @@ const TaskComponent = () => {
     >
       <div style={{ textAlign: "center", marginBottom: "20px" }}>
         <h1
+        className=" dark:text-white"
           style={{
             fontSize: "24px",
             fontWeight: "bold",
-            color: "#1b254b",
             borderBottom: "2px solid #ccc",
             paddingBottom: "5px",
           }}
@@ -137,10 +138,11 @@ const TaskComponent = () => {
           color: "#1b254b",
         }}
       >
-        <label htmlFor="taskTitle" style={{ marginBottom: "5px", color: "#1b254b", }}>
+        <label className=" dark:text-white" htmlFor="taskTitle" style={{ marginBottom: "5px" }}>
           Title
         </label>
         <input
+        className="dark:text-white dark:bg-gray-700 dark:text-black"
           type="text"
           id="taskTitle"
           value={taskData.title}
@@ -164,10 +166,11 @@ const TaskComponent = () => {
           marginBottom: "10px",
         }}
       >
-        <label htmlFor="taskDescription" style={{ marginBottom: "5px",color: "#1b254b", }}>
+        <label className=" dark:text-white" htmlFor="taskDescription" style={{ marginBottom: "5px"}}>
           Description (optional)
         </label>
         <textarea
+        className="dark:text-white dark:bg-gray-700 dark:text-black"
           id="taskDescription"
           value={taskData.description}
           onChange={handleChange}
@@ -190,10 +193,11 @@ const TaskComponent = () => {
           marginBottom: "10px",
         }}
       >
-        <label htmlFor="expToGain" style={{ marginBottom: "5px", color: "#1b254b", }}>
+        <label className=" dark:text-white" htmlFor="expToGain" style={{ marginBottom: "5px" }}>
           Experience Points
         </label>
         <input
+        className="dark:text-white dark:bg-gray-700 dark:text-black"
           type="number"
           id="expToGain"
           value={taskData.exp_to_gain}
@@ -209,8 +213,8 @@ const TaskComponent = () => {
           }}
         />
       </div>
-      <label htmlFor="newSubtask" style={{ marginRight: "10px", color: "#1b254b" }}>
-        Subtask
+      <label className=" dark:text-white" htmlFor="newSubtask" style={{ marginRight: "10px"}}>
+        Subtasks
       </label>
       <div
         style={{
@@ -220,6 +224,7 @@ const TaskComponent = () => {
         }}
       >
         <input
+        className="dark:text-white dark:bg-gray-700 dark:text-black"
           type="text"
           id="newSubtask"
           value={newSubtask}
@@ -232,7 +237,8 @@ const TaskComponent = () => {
             borderRadius: "5px",
             border: "1px solid blue",
             marginRight: "10px",
-          }}
+          }
+        }
         />
         <button
           style={{
@@ -281,6 +287,8 @@ const TaskComponent = () => {
         Create Task
       </button>
     </Card>
+    <div style={{ height: "10vh" }}></div>
+    </>
   );
 };
 

@@ -34,7 +34,7 @@ const ShowTasks = () => {
     <div style={{marginTop: '3%', width: '100%'}}>
       <h2 style={{fontSize: '20px'}} className="font-bold capitalize hover:text-navy-700 dark:text-white" >Your Tasks</h2>
       {tasks.length === 0 ? (
-        <p>You don't have any tasks yet.</p>
+        <p className=' dark:text-white'>You don't have any tasks yet.</p>
       ) : (
         <ul className='flex flex-col space-y-4'>
           {tasks.map((task) => (
@@ -77,7 +77,7 @@ const ShowCompletedTasks = () => {
     <div style={{marginTop: '3%'}}>
       <h2 style={{fontSize: '20px'}} className="font-bold capitalize hover:text-navy-700 dark:text-white" >Completed Tasks</h2>
       {tasks.length === 0 ? (
-        <p>You haven't completed any tasks.</p>
+        <p className=' dark:text-white'>You haven't completed any tasks.</p>
       ) : (
         <ul className="flex flex-col space-y-4">
           {tasks.map((task) => (
