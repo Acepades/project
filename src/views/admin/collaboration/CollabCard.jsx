@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react';
 import Card from 'components/card';
 import Checkbox from 'components/checkbox';
-import { TasksContext } from 'contexts/TasksContext';
+import { TasksContext } from 'controllers/TasksContext';
 import { Timestamp } from 'firebase/firestore';
 import InviteCollaborator from '../default/components/InviteCollab';
 import { collection, getDocs, query, where } from 'firebase/firestore'; 

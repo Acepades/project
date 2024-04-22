@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import { Link, useLocation } from "react-router-dom";
 import DashIcon from "components/icons/DashIcon";
-import { GlobalContext } from "contexts/GlobalContext";
+import { GlobalContext } from 'controllers/GlobalContext';
 // chakra imports
 
 export function SidebarLinks(props) {

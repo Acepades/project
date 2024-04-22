@@ -1,5 +1,5 @@
 import React from 'react';
-import { GlobalContext } from 'contexts/GlobalContext';
+import { GlobalContext } from 'controllers/GlobalContext';
 import InputField from 'components/fields/InputField';
 import Checkbox from 'components/checkbox';
 

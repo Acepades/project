@@ -3,7 +3,7 @@ import React, { useContext, useEffect, useState } from "react";
 import avatar from "assets/img/avatars/avatar11.png";
 import avatarr from "assets/img/avatars/avatarSimmmple.png";
 import Card from "components/card";
-import { GlobalContext } from "contexts/GlobalContext";
+import { GlobalContext } from 'controllers/GlobalContext';
 import { getDoc, doc } from "firebase/firestore"; // Import Firestore functions
 import { db } from "lib/firebase"; // Import Firestore instance
 

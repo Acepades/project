@@ -1,7 +1,7 @@
 import ReactDOM from "react-dom/client";
 import { BrowserRouter } from "react-router-dom";
-import { ContextProvider } from "contexts/GlobalContext";
-import { TasksProvider } from "contexts/TasksContext";
+import { ContextProvider } from "controllers/GlobalContext";
+import { TasksProvider } from "controllers/TasksContext";
 import { PointsProvider } from './views/admin/default/components/PointsContext';
 
 import "./index.css";

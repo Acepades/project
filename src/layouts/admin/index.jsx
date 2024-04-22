@@ -3,7 +3,7 @@ import { Routes, Route, Navigate, useLocation } from "react-router-dom";
 import Navbar from "components/navbar";
 import Sidebar from "components/sidebar";
 import routes from "routes.js";
-import { GlobalContext } from "contexts/GlobalContext";
+import { GlobalContext } from 'controllers/GlobalContext';
 export default function Admin(props) {
   const { isSignedIn } = useContext(GlobalContext);
   const { ...rest } = props;

@@ -1,10 +1,8 @@
 import React from "react";
-import Dropdown from "components/dropdown";
 import { FiAlignJustify } from "react-icons/fi";
 import { Link } from "react-router-dom";
 //import navbarimage from "assets/img/layout/Navbar.png";
 import { RiMoonFill, RiSunFill } from "react-icons/ri";
-import { GlobalContext } from 'contexts/GlobalContext';
 
 import avatar from "assets/img/avatars/avatar4.png";
 import Notification from "views/admin/default/components/notifications";
@@ -13,7 +11,6 @@ import LevelUp from  "views/admin/default/components/LevelUp";
 
 
 const Navbar = (props) => {
-  const { signOut } = React.useContext(GlobalContext);
   const { onOpenSidenav, brandText } = props;
   const [darkmode, setDarkmode] = React.useState(false);
 

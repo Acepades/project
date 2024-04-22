@@ -3,7 +3,7 @@ import badge_5 from 'assets/img/badges/5.png';
 import badge_10 from 'assets/img/badges/10.png';
 import badge_15 from 'assets/img/badges/15.png';
 import React, { useContext } from 'react';
-import { GlobalContext } from 'contexts/GlobalContext'; // Replace with your context path
+import { GlobalContext } from 'controllers/GlobalContext';
 
 const BadgeGrid = () => {
   const { user } = useContext(GlobalContext);

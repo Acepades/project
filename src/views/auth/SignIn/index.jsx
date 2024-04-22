@@ -2,7 +2,7 @@ import InputField from "components/fields/InputField";
 import { FcGoogle } from "react-icons/fc";
 import Checkbox from "components/checkbox";
 import React from 'react';
-import { GlobalContext } from 'contexts/GlobalContext';
+import { GlobalContext } from 'controllers/GlobalContext';
 
 export default function SignIn() {
   const [email, setEmail] = React.useState('');

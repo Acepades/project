@@ -5,7 +5,7 @@ import React, {  useContext } from 'react';
 
 
 // Contexts
-import { GlobalContext } from 'contexts/GlobalContext';
+import { GlobalContext } from 'controllers/GlobalContext';
 import FixedPlugin from "components/fixedPlugin/FixedPlugin";
 
 
