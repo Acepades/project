@@ -13,10 +13,10 @@ import {
 import { getDoc, setDoc, doc } from 'firebase/firestore';
 
 // Firebase auth instance
-import firebaseAuth from 'lib/firebase';
+import firebaseAuth from 'model/firebase';
 // User collection reference
 import { collection, onSnapshot } from 'firebase/firestore';
-import { db } from 'lib/firebase'; // Assuming you export db from firebase.js
+import { db } from 'model/firebase'; // Assuming you export db from firebase.js
 const usersCollectionRef = collection(db, "Users");
 
 // Google oauth provider

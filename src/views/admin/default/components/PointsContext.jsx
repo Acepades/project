@@ -1,8 +1,8 @@
 import React, { createContext, useState, useEffect, useContext } from 'react';
 import { GlobalContext } from 'controllers/GlobalContext';
 import { getDoc, doc, updateDoc} from "firebase/firestore"; // Import Firestore functions
-import { db } from 'lib/firebase';
-import auth from 'lib/firebase';
+import { db } from 'model/firebase';
+import auth from 'model/firebase';
 
 // Contexte pour les données et les fonctions du système de points
 export const PointsContext = createContext({

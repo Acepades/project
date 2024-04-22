@@ -5,8 +5,8 @@ import { TasksContext } from 'controllers/TasksContext';
 import { Timestamp } from 'firebase/firestore';
 import InviteCollaborator from '../default/components/InviteCollab';
 import { collection, getDocs, query, where } from 'firebase/firestore'; 
-import { db } from 'lib/firebase'; 
-import auth from 'lib/firebase';
+import { db } from 'model/firebase'; 
+import auth from 'model/firebase';
 import { PointsContext } from '../default/components/PointsContext';
 
 const CollabCard = ({ task }) => {
@@ -100,9 +100,9 @@ const CollabCard = ({ task }) => {
       <li key={task.id} className="m-3">
         <h3 className="font-bold text-lg mb-2 mt-2">{task.title}</h3>
         <p className="text-gray-700 mb-2">{task.description}</p>
-        {task.Task_exp > 0 && (
+        {task.exp_to_gain > 0 && (
           <p className="font-medium text-gray-500">
-            <b>Experience Points:</b> {task.Task_exp}
+            <b>Experience Points:</b> {task.exp_to_gain}
           </p>
         )}
         <p className="text-gray-500 text-sm">

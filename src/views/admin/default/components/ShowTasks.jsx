@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { collection, query, where, onSnapshot} from 'firebase/firestore'; // Import v9 functions
-import auth from 'lib/firebase'; // Assuming auth configuration
+import auth from 'model/firebase'; // Assuming auth configuration
 import TaskCard from './TaskCard'; // Assuming TaskCard component path
-import { db } from 'lib/firebase'; // Assuming database reference
+import { db } from 'model/firebase'; // Assuming database reference
 
 const ShowTasks = () => {
   const [tasks, setTasks] = useState([]);
@@ -10,11 +10,11 @@ const ShowTasks = () => {
   // Fetch tasks on component mount and listen for changes
   useEffect(() => {
     const unsubscribe = onSnapshot(
-      query(collection(db, 'Tasks'), 
+      query(collection(db, 'Tasks'),
       where('createdBy', '==', auth.currentUser?.uid),
       where('isComplete', '==', false),
       where('isCollab', '==', false)),
-      
+
       (querySnapshot) => {
         const newTasks = querySnapshot.docs.map((doc) => ({
           id: doc.id,
@@ -74,8 +74,8 @@ const ShowCompletedTasks = () => {
   }, []);
 
   return (
-    <div style={{marginTop: '3%'}}>
-      <h2 style={{fontSize: '20px'}} className="font-bold capitalize hover:text-navy-700 dark:text-white" >Completed Tasks</h2>
+    <div style={{marginTop: '3%'}}><h2 style={{fontSize: '20px'}} className="font-bold capitalize hover:text-navy-700 dark:text-white" >Completed Tasks</h2>
+      
       {tasks.length === 0 ? (
         <p className=' dark:text-white'>You haven't completed any tasks.</p>
       ) : (

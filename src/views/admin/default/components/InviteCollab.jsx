@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'; // Import useEffect for user data fetching
 import { addDoc, collection, doc, getDoc, getDocs, query, where } from 'firebase/firestore';
-import { db } from 'lib/firebase';
-import auth from 'lib/firebase';
+import { db } from 'model/firebase';
+import auth from 'model/firebase';
 
 const InviteCollaborator = ({taskId}) => {
   const [inviteValue, setInviteValue] = useState('');

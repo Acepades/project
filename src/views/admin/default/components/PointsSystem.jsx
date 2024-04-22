@@ -1,9 +1,9 @@
 import React, {useEffect, useContext } from 'react';
 import { PointsContext } from './PointsContext.jsx';
 import { FcRating} from "react-icons/fc";
-import auth from 'lib/firebase';
+import auth from 'model/firebase';
 import {doc , getDoc } from 'firebase/firestore';
-import { db } from 'lib/firebase'; // Assuming db is your Firestore instance
+import { db } from 'model/firebase'; // Assuming db is your Firestore instance
 import Progress from 'components/progress';
 
 

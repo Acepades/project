@@ -1,11 +1,11 @@
 
 import React, { useContext, useEffect, useState } from "react";
-import avatar from "assets/img/avatars/avatar11.png";
+import avatar from "assets/img/avatars/avatar9.png";
 import avatarr from "assets/img/avatars/avatarSimmmple.png";
 import Card from "components/card";
 import { GlobalContext } from 'controllers/GlobalContext';
 import { getDoc, doc } from "firebase/firestore"; // Import Firestore functions
-import { db } from "lib/firebase"; // Import Firestore instance
+import { db } from "model/firebase"; // Import Firestore instance
 
 import PointsSystem from "views/admin/default/components/PointsSystem";
 

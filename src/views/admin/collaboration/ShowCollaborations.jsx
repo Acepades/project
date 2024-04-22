@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { collection, query, where, onSnapshot} from 'firebase/firestore'; // Import v9 functions
-import auth from 'lib/firebase'; 
-import { db } from 'lib/firebase'; 
+import auth from 'model/firebase'; 
+import { db } from 'model/firebase'; 
 import CollabCard from './CollabCard';
 
 const ShowCollaborations = () => {

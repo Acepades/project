@@ -1,10 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { collection, deleteDoc, doc, getDoc, onSnapshot, query, updateDoc, where } from 'firebase/firestore'; // Import v9 functions
-import { db } from 'lib/firebase'; // Assuming database reference
-import auth from 'lib/firebase'; // Assuming auth provider
-import { default as Dropdown } from "components/dropdown"; // Assuming Dropdown component import
+import { db } from 'model/firebase'; // Assuming database reference
+import auth from 'model/firebase'; // Assuming auth provider
 import { BsArrowBarUp } from "react-icons/bs"; // Assuming react-icons imports
-import { IoMdNotificationsOutline } from 'react-icons/io';
 import { arrayUnion } from 'firebase/firestore';
 const Notificationz = () => {
   const [notifications, setNotifications] = useState([]);

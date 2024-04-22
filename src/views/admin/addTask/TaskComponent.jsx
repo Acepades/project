@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import Card from "components/card";
-import auth from "lib/firebase";
+import auth from "model/firebase";
 import { Timestamp, collection, addDoc } from "firebase/firestore";
-import { db } from "lib/firebase";
+import { db } from "model/firebase";
 
 const TaskComponent = () => {
   const [taskData, setTaskData] = useState({

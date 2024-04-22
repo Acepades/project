@@ -9,7 +9,6 @@ import { PointsContext } from './PointsContext.jsx';
 
 const TaskCard = ({ task }) => {
   const { updateTask, deleteTask } = useContext(TasksContext); // Access context values
-
   // Ajoutez l'accès au contexte du système de points
   const {updatePoints } = useContext(PointsContext);
   const handleMarkComplete = async () => {
@@ -51,9 +50,9 @@ const TaskCard = ({ task }) => {
       <li key={task.id} className="m-3">
         <h3 className="font-bold text-lg mb-2 mt-2">{task.title}</h3>
         <p className="text-gray-700 mb-2">{task.description}</p>
-        {task.Task_exp > 0 && (
+        {task.exp_to_gain > 1 && (
           <p className="font-medium text-gray-500">
-            <b>Experience Points:</b> {task.Task_exp}
+            <b>Experience Points:</b> {task.exp_to_gain}
           </p>
         )}
         <p className="text-gray-500 text-sm">
