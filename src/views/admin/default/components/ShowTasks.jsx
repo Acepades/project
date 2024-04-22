@@ -32,7 +32,7 @@ const ShowTasks = () => {
 
   return (
     <div style={{marginTop: '3%', width: '100%'}}>
-      <h2 style={{fontSize: '20px'}} className="font-bold capitalize hover:text-navy-700 dark:hover:text-white" >Your Tasks</h2>
+      <h2 style={{fontSize: '20px'}} className="font-bold capitalize hover:text-navy-700 dark:text-white" >Your Tasks</h2>
       {tasks.length === 0 ? (
         <p>You don't have any tasks yet.</p>
       ) : (
@@ -75,7 +75,7 @@ const ShowCompletedTasks = () => {
 
   return (
     <div style={{marginTop: '3%'}}>
-      <h2 style={{fontSize: '20px'}} className="font-bold capitalize hover:text-navy-700 dark:hover:text-white" >Completed Tasks</h2>
+      <h2 style={{fontSize: '20px'}} className="font-bold capitalize hover:text-navy-700 dark:text-white" >Completed Tasks</h2>
       {tasks.length === 0 ? (
         <p>You haven't completed any tasks.</p>
       ) : (

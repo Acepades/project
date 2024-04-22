@@ -81,6 +81,9 @@ const TaskCard = ({ task }) => {
             <p className="text-green-500 text-sm mt-2">
               <b>Completed At:</b> {task.completedAt?.toDate().toLocaleString() || '-'} {/* Show CompletedAt if available */}
             </p>
+            <button onClick={handleDeleteTask} className="bg-gray-500 hover:bg-gray-700 text-white font-normal py-1 px-2 rounded">
+              Delete
+            </button>
           </>
         ) : (
           <>
